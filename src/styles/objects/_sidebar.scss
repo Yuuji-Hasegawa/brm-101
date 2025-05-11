@@ -1,0 +1,9 @@
+@use '../settings' as setting;
+
+@layer layout {
+  .o-sdb {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--sdb-gtt, setting.f-get-space(l));
+  }
+}

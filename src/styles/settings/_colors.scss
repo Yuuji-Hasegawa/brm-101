@@ -1,0 +1,733 @@
+@use 'sass:map';
+@use 'sass:color';
+@use 'palette' as palette;
+@use 'altcolors' as alt-colors;
+
+$light-pattern: (
+  blue: #007aff,
+  indigo: #5856d6,
+  purple: #af52de,
+  pink: #ff2d55,
+  red: #ff3b30,
+  orange: #ff9500,
+  yellow: #ffcc00,
+  green: #28cd41,
+  teal: #59adc4,
+  cyan: #55bef0,
+) !default;
+
+$dark-pattern: (
+  blue: #0a84ff,
+  indigo: #5e5ce6,
+  purple: #bf5af2,
+  pink: #ff375f,
+  red: #ff453a,
+  orange: #ff9f0a,
+  yellow: #ffd60a,
+  green: #30d158,
+  teal: #40c8e0,
+  cyan: #64d2ff,
+) !default;
+
+$light-colorlabels: (
+  primary: map.get($light-pattern, blue),
+  danger: map.get($light-pattern, red),
+  success: map.get($light-pattern, green),
+  warning: map.get($light-pattern, yellow),
+  info: map.get($light-pattern, cyan),
+) !default;
+
+$dark-colorlabels: (
+  primary: map.get($dark-pattern, blue),
+  danger: map.get($dark-pattern, red),
+  success: map.get($dark-pattern, green),
+  warning: map.get($dark-pattern, yellow),
+  info: map.get($dark-pattern, cyan),
+) !default;
+
+@function state-color($color, $state) {
+  $opacity: map.get($state-ratio, $state);
+  @return rgba($color, $opacity);
+}
+
+$state-ratio: (
+  hover: 0.08,
+  engage: 0.12,
+  drag: 0.16,
+) !default;
+
+$scrim-ratio: 0.32;
+
+$sys-light: (
+  primary: map.get(palette.$ref-primary, level40),
+  onPrimary: map.get(palette.$ref-primary, level100),
+  secondary: map.get(palette.$ref-secondary, level40),
+  onSecondary: map.get(palette.$ref-secondary, level100),
+  tertiary: map.get(palette.$ref-tertiary, level40),
+  onTertiary: map.get(palette.$ref-tertiary, level100),
+  error: map.get(palette.$ref-red, level40),
+  onError: map.get(palette.$ref-red, level100),
+  success: map.get(palette.$ref-green, level40),
+  onSuccess: map.get(palette.$ref-green, level100),
+  warning: map.get(palette.$ref-yellow, level40),
+  onWarning: map.get(palette.$ref-yellow, level100),
+  info: map.get(palette.$ref-cyan, level40),
+  onInfo: map.get(palette.$ref-cyan, level100),
+  primaryContainer: map.get(palette.$ref-primary, level90),
+  onPrimaryContainer: map.get(palette.$ref-primary, level10),
+  secondaryContainer: map.get(palette.$ref-secondary, level90),
+  onSecondaryContainer: map.get(palette.$ref-secondary, level10),
+  tertiaryContainer: map.get(palette.$ref-tertiary, level90),
+  onTertiaryContainer: map.get(palette.$ref-tertiary, level10),
+  errorContainer: map.get(palette.$ref-red, level90),
+  onErrorContainer: map.get(palette.$ref-red, level10),
+  successContainer: map.get(palette.$ref-green, level90),
+  onSuccessContainer: map.get(palette.$ref-green, level10),
+  warningContainer: map.get(palette.$ref-yellow, level90),
+  onWarningContainer: map.get(palette.$ref-yellow, level10),
+  infoContainer: map.get(palette.$ref-cyan, level90),
+  onInfoContainer: map.get(palette.$ref-cyan, level10),
+  surfaceDim: map.get(palette.$ref-neutral, level87),
+  surface: map.get(palette.$ref-neutral, level98),
+  surfaceBright: map.get(palette.$ref-neutral, level98),
+  surfaceContainerLowest: map.get(palette.$ref-neutral, level100),
+  surfaceContainerLow: map.get(palette.$ref-neutral, level96),
+  surfaceContainerHigh: map.get(palette.$ref-neutral, level92),
+  surfaceContainerHighest: map.get(palette.$ref-neutral, level90),
+  onSurface: map.get(palette.$ref-neutral, level10),
+  onSurfaceVar: map.get(palette.$ref-neutralVariant, level30),
+  outline: map.get(palette.$ref-neutralVariant, level50),
+  outlineVariant: map.get(palette.$ref-neutralVariant, level80),
+  inverseSurface: map.get(palette.$ref-neutral, level20),
+  inverseOnSurface: map.get(palette.$ref-neutral, level95),
+  inversePrimary: map.get(palette.$ref-primary, level80),
+  scrim: map.get(palette.$ref-neutral, level0),
+  shadow: map.get(palette.$ref-neutral, level0),
+) !default;
+
+$sys-dark: (
+  primary: map.get(palette.$ref-primary, level80),
+  onPrimary: map.get(palette.$ref-primary, level20),
+  secondary: map.get(palette.$ref-secondary, level80),
+  onSecondary: map.get(palette.$ref-secondary, level20),
+  tertiary: map.get(palette.$ref-tertiary, level80),
+  onTertiary: map.get(palette.$ref-tertiary, level20),
+  error: map.get(palette.$ref-red, level80),
+  onError: map.get(palette.$ref-red, level20),
+  success: map.get(palette.$ref-green, level80),
+  onSuccess: map.get(palette.$ref-green, level20),
+  warning: map.get(palette.$ref-yellow, level80),
+  onWarning: map.get(palette.$ref-yellow, level20),
+  info: map.get(palette.$ref-cyan, level80),
+  onInfo: map.get(palette.$ref-cyan, level20),
+  primaryContainer: map.get(palette.$ref-primary, level30),
+  onPrimaryContainer: map.get(palette.$ref-primary, level90),
+  secondaryContainer: map.get(palette.$ref-secondary, level30),
+  onSecondaryContainer: map.get(palette.$ref-secondary, level90),
+  tertiaryContainer: map.get(palette.$ref-tertiary, level30),
+  onTertiaryContainer: map.get(palette.$ref-tertiary, level90),
+  errorContainer: map.get(palette.$ref-red, level30),
+  onErrorContainer: map.get(palette.$ref-red, level90),
+  successContainer: map.get(palette.$ref-green, level30),
+  onSuccessContainer: map.get(palette.$ref-green, level90),
+  warningContainer: map.get(palette.$ref-yellow, level30),
+  onWarningContainer: map.get(palette.$ref-yellow, level90),
+  infoContainer: map.get(palette.$ref-cyan, level30),
+  onInfoContainer: map.get(palette.$ref-cyan, level90),
+  surfaceDim: map.get(palette.$ref-neutral, level6),
+  surface: map.get(palette.$ref-neutral, level6),
+  surfaceBright: map.get(palette.$ref-neutral, level4),
+  surfaceContainerLowest: map.get(palette.$ref-neutral, level10),
+  surfaceContainerLow: map.get(palette.$ref-neutral, level12),
+  surfaceContainerHigh: map.get(palette.$ref-neutral, level17),
+  surfaceContainerHighest: map.get(palette.$ref-neutral, level24),
+  onSurface: map.get(palette.$ref-neutral, level90),
+  onSurfaceVar: map.get(palette.$ref-neutralVariant, level90),
+  outline: map.get(palette.$ref-neutralVariant, level60),
+  outlineVariant: map.get(palette.$ref-neutralVariant, level30),
+  inverseSurface: map.get(palette.$ref-neutral, level90),
+  inverseOnSurface: map.get(palette.$ref-neutral, level20),
+  inversePrimary: map.get(palette.$ref-primary, level40),
+  scrim: map.get(palette.$ref-neutral, level0),
+  shadow: map.get(palette.$ref-neutral, level0),
+) !default;
+
+$shadows: (
+  none: (
+    rgba(map.get($sys-light, shadow), 0.2) 0px 0px 0px 0px,
+    rgba(map.get($sys-light, shadow), 0.14) 0px 0px 0px 0px,
+    rgba(map.get($sys-light, shadow), 0.12) 0px 0px 0px 0px,
+  ),
+  layer: (
+    rgba(map.get($sys-light, shadow), 0.2) 0px 2px 1px -1px,
+    rgba(map.get($sys-light, shadow), 0.14) 0px 1px 1px 0px,
+    rgba(map.get($sys-light, shadow), 0.12) 0px 1px 3px 0px,
+  ),
+  elevate: (
+    rgba(map.get($sys-light, shadow), 0.2) 0px 3px 3px -2px,
+    rgba(map.get($sys-light, shadow), 0.14) 0px 3px 4px 0px,
+    rgba(map.get($sys-light, shadow), 0.12) 0px 1px 8px 0px,
+  ),
+  float: (
+    rgba(map.get($sys-light, shadow), 0.2) 0px 3px 5px -1px,
+    rgba(map.get($sys-light, shadow), 0.14) 0px 6px 10px 0px,
+    rgba(map.get($sys-light, shadow), 0.12) 0px 1px 18px 0px,
+  ),
+  moved: (
+    rgba(map.get($sys-light, shadow), 0.2) 0px 5px 5px -3px,
+    rgba(map.get($sys-light, shadow), 0.14) 0px 8px 10px 1px,
+    rgba(map.get($sys-light, shadow), 0.12) 0px 3px 14px 2px,
+  ),
+  emphasis: (
+    rgba(map.get($sys-light, shadow), 0.2) 0px 7px 8px -4px,
+    rgba(map.get($sys-light, shadow), 0.14) 0px 12px 17px 2px,
+    rgba(map.get($sys-light, shadow), 0.12) 0px 5px 22px 4px,
+  ),
+) !default;
+
+$semantic-light: (
+  txt: map.get($sys-light, onSurface),
+  txt-desc: map.get($sys-light, onSurfaceVar),
+  placeholder: map.get($sys-light, outline),
+  txt-on-fill: map.get($sys-light, onPrimary),
+  txt-on-fill-secondary: map.get($sys-light, onSecondary),
+  txt-on-fill-tertiary: map.get($sys-light, onTertiary),
+  txt-on-bg-primary: map.get($sys-light, onPrimaryContainer),
+  txt-on-bg-secondary: map.get($sys-light, onSecondaryContainer),
+  txt-on-bg-tertiary: map.get($sys-light, onTertiaryContainer),
+  txt-on-error: map.get($sys-light, onError),
+  txt-on-error-bg: map.get($sys-light, onErrorContainer),
+  txt-on-success: map.get($sys-light, onSuccess),
+  txt-on-success-bg: map.get($sys-light, onSuccessContainer),
+  txt-on-warning: map.get($sys-light, onWarning),
+  txt-on-warning-bg: map.get($sys-light, onWarningContainer),
+  txt-on-info: map.get($sys-light, onInfo),
+  txt-on-info-bg: map.get($sys-light, onInfoContainer),
+  txt-on-inverse-bg: map.get($sys-light, inverseOnSurface),
+  txt-disabled: rgba(map.get($sys-light, onSurface), 0.38),
+  fill: map.get($sys-light, primary),
+  fill-secondary: map.get($sys-light, secondary),
+  fill-tertiary: map.get($sys-light, tertiary),
+  fill-neutral: map.get($sys-light, surfaceContainerLowest),
+  fill-inverse-bg: map.get($sys-light, inverseSurface),
+  fill-primary-inverse: map.get($sys-light, inversePrimary),
+  fill-disabled: rgba(map.get($sys-light, onSurface), 0.12),
+  bg: map.get($sys-light, surface),
+  bg-layer: map.get($sys-light, surfaceDim),
+  bg-primary: map.get($sys-light, primaryContainer),
+  bg-secondary: map.get($sys-light, secondaryContainer),
+  bg-tertiary: map.get($sys-light, tertiaryContainer),
+  bg-active: map.get($sys-light, surfaceBright),
+  bg-behind: map.get($sys-light, surfaceContainerLow),
+  bg-modal: map.get($sys-light, surfaceContainerHigh),
+  bg-emphasis: map.get($sys-light, surfaceContainerHighest),
+  brd: map.get($sys-light, outline),
+  brd-ghost: map.get($sys-light, outlineVariant),
+  link: map.get($sys-light, primary),
+  link-visited: map.get($sys-light, outlineVariant),
+  link-hover: color.mix(
+      map.get($sys-light, primary),
+      state-color(map.get($sys-light, primary), hover)
+    ),
+  link-engage: color.mix(
+      map.get($sys-light, primary),
+      state-color(map.get($sys-light, primary), engage)
+    ),
+  status-error: map.get($sys-light, error),
+  status-error-bg: map.get($sys-light, errorContainer),
+  status-success: map.get($sys-light, success),
+  status-success-bg: map.get($sys-light, successContainer),
+  status-warning: map.get($sys-light, warning),
+  status-warning-bg: map.get($sys-light, warningContainer),
+  status-info-bg: map.get($sys-light, infoContainer),
+  status-info: map.get($sys-light, info),
+  brand-tint: map.get(alt-colors.$myBrand, lightTint),
+  brand-middle: map.get(alt-colors.$myBrand, lightMiddle),
+  brand-shade: map.get(alt-colors.$myBrand, lightShade),
+  accent-tint: map.get(alt-colors.$accent, lightTint),
+  accent-middle: map.get(alt-colors.$accent, lightMiddle),
+  accent-shade: map.get(alt-colors.$accent, lightShade),
+  accent-hover: color.mix(
+      map.get(alt-colors.$accent, lightMiddle),
+      state-color(map.get(alt-colors.$accent, lightMiddle), hover)
+    ),
+  accent-engage: color.mix(
+      map.get(alt-colors.$accent, lightMiddle),
+      state-color(map.get(alt-colors.$accent, lightMiddle), engage)
+    ),
+  state-hover-txt: state-color(map.get($sys-light, onSurface), hover),
+  state-engage-txt: state-color(map.get($sys-light, onSurface), engage),
+  state-drag-txt: state-color(map.get($sys-light, onSurface), drag),
+  state-hover-txt-desc: state-color(map.get($sys-light, onSurfaceVar), hover),
+  state-engage-txt-desc: state-color(map.get($sys-light, onSurfaceVar), engage),
+  state-drag-txt-desc: state-color(map.get($sys-light, onSurfaceVar), drag),
+  state-hover-txt-on-fill: state-color(map.get($sys-light, onPrimary), hover),
+  state-engage-txt-on-fill: state-color(map.get($sys-light, onPrimary), engage),
+  state-drag-txt-on-fill: state-color(map.get($sys-light, onPrimary), drag),
+  state-hover-txt-on-fill-secondary: state-color(
+      map.get($sys-light, onSecondary),
+      hover
+    ),
+  state-engage-txt-on-fill-secondary: state-color(
+      map.get($sys-light, onSecondary),
+      engage
+    ),
+  state-drag-txt-on-fill-secondary: state-color(
+      map.get($sys-light, onSecondary),
+      drag
+    ),
+  state-hover-txt-on-fill-tertiary: state-color(
+      map.get($sys-light, onTertiary),
+      hover
+    ),
+  state-engage-txt-on-fill-tertiary: state-color(
+      map.get($sys-light, onTertiary),
+      engage
+    ),
+  state-drag-txt-on-fill-tertiary: state-color(
+      map.get($sys-light, onTertiary),
+      drag
+    ),
+  state-hover-txt-on-bg-primary: state-color(
+      map.get($sys-light, onPrimaryContainer),
+      hover
+    ),
+  state-engage-txt-on-bg-primary: state-color(
+      map.get($sys-light, onPrimaryContainer),
+      engage
+    ),
+  state-drag-txt-on-bg-primary: state-color(
+      map.get($sys-light, onPrimaryContainer),
+      drag
+    ),
+  state-hover-txt-on-bg-secondary: state-color(
+      map.get($sys-light, onSecondaryContainer),
+      hover
+    ),
+  state-engage-txt-on-bg-secondary: state-color(
+      map.get($sys-light, onSecondaryContainer),
+      engage
+    ),
+  state-drag-txt-on-bg-secondary: state-color(
+      map.get($sys-light, onSecondaryContainer),
+      drag
+    ),
+  state-hover-txt-on-bg-tertiary: state-color(
+      map.get($sys-light, onTertiaryContainer),
+      hover
+    ),
+  state-engage-txt-on-bg-tertiary: state-color(
+      map.get($sys-light, onTertiaryContainer),
+      engage
+    ),
+  state-drag-txt-on-bg-tertiary: state-color(
+      map.get($sys-light, onTertiaryContainer),
+      drag
+    ),
+  state-hover-txt-on-error: state-color(map.get($sys-light, onError), hover),
+  state-engage-txt-on-error: state-color(map.get($sys-light, onError), engage),
+  state-drag-txt-on-error: state-color(map.get($sys-light, onError), drag),
+  state-hover-txt-on-error-bg: state-color(
+      map.get($sys-light, onErrorContainer),
+      hover
+    ),
+  state-engage-txt-on-error-bg: state-color(
+      map.get($sys-light, onErrorContainer),
+      engage
+    ),
+  state-drag-txt-on-error-bg: state-color(
+      map.get($sys-light, onErrorContainer),
+      drag
+    ),
+  state-hover-txt-on-success: state-color(map.get($sys-light, onSuccess), hover),
+  state-engage-txt-on-success: state-color(
+      map.get($sys-light, onSuccess),
+      engage
+    ),
+  state-drag-txt-on-success: state-color(map.get($sys-light, onSuccess), drag),
+  state-hover-txt-on-success-bg: state-color(
+      map.get($sys-light, onSuccessContainer),
+      hover
+    ),
+  state-engage-txt-on-success-bg: state-color(
+      map.get($sys-light, onSuccessContainer),
+      engage
+    ),
+  state-drag-txt-on-success-bg: state-color(
+      map.get($sys-light, onSuccessContainer),
+      drag
+    ),
+  state-hover-txt-on-warning: state-color(map.get($sys-light, onWarning), hover),
+  state-engage-txt-on-warning: state-color(
+      map.get($sys-light, onWarning),
+      engage
+    ),
+  state-drag-txt-on-warning: state-color(map.get($sys-light, onWarning), drag),
+  state-hover-txt-on-warning-bg: state-color(
+      map.get($sys-light, onWarningContainer),
+      hover
+    ),
+  state-engage-txt-on-warning-bg: state-color(
+      map.get($sys-light, onWarningContainer),
+      engage
+    ),
+  state-drag-txt-on-warning-bg: state-color(
+      map.get($sys-light, onWarningContainer),
+      drag
+    ),
+  state-hover-txt-on-info: state-color(map.get($sys-light, onInfo), hover),
+  state-engage-txt-on-info: state-color(map.get($sys-light, onInfo), engage),
+  state-drag-txt-on-info: state-color(map.get($sys-light, onInfo), drag),
+  state-hover-txt-on-info-bg: state-color(
+      map.get($sys-light, onInfoContainer),
+      hover
+    ),
+  state-engage-txt-on-info-bg: state-color(
+      map.get($sys-light, onInfoContainer),
+      engage
+    ),
+  state-drag-txt-on-info-bg: state-color(
+      map.get($sys-light, onInfoContainer),
+      drag
+    ),
+  state-hover-txt-on-inverse-bg: state-color(
+      map.get($sys-light, inverseOnSurface),
+      hover
+    ),
+  state-engage-txt-on-inverse-bg: state-color(
+      map.get($sys-light, inverseOnSurface),
+      engage
+    ),
+  state-drag-txt-on-inverse-bg: state-color(
+      map.get($sys-light, inverseOnSurface),
+      drag
+    ),
+  state-hover-fill: state-color(map.get($sys-light, primary), hover),
+  state-engage-fill: state-color(map.get($sys-light, primary), engage),
+  state-drag-fill: state-color(map.get($sys-light, primary), drag),
+  state-hover-fill-secondary: state-color(map.get($sys-light, secondary), hover),
+  state-engage-fill-secondary: state-color(
+      map.get($sys-light, secondary),
+      engage
+    ),
+  state-drag-fill-secondary: state-color(map.get($sys-light, secondary), drag),
+  state-hover-fill-tertiary: state-color(map.get($sys-light, tertiary), hover),
+  state-engage-fill-tertiary: state-color(map.get($sys-light, tertiary), engage),
+  state-drag-fill-tertiary: state-color(map.get($sys-light, tertiary), drag),
+  state-hover-fill-inverse-bg: state-color(
+      map.get($sys-light, inverseSurface),
+      hover
+    ),
+  state-engage-fill-inverse-bg: state-color(
+      map.get($sys-light, inverseSurface),
+      engage
+    ),
+  state-drag-fill-inverse-bg: state-color(
+      map.get($sys-light, inverseSurface),
+      drag
+    ),
+  state-hover-fill-primary-inverse: state-color(
+      map.get($sys-light, inversePrimary),
+      hover
+    ),
+  state-engage-fill-primary-inverse: state-color(
+      map.get($sys-light, inversePrimary),
+      engage
+    ),
+  state-drag-fill-primary-inverse: state-color(
+      map.get($sys-light, inversePrimary),
+      drag
+    ),
+  state-hover-error: state-color(map.get($sys-light, error), hover),
+  state-engage-error: state-color(map.get($sys-light, error), engage),
+  state-drag-error: state-color(map.get($sys-light, error), drag),
+  state-hover-success: state-color(map.get($sys-light, success), hover),
+  state-engage-success: state-color(map.get($sys-light, success), engage),
+  state-drag-success: state-color(map.get($sys-light, success), drag),
+  state-hover-warning: state-color(map.get($sys-light, warning), hover),
+  state-engage-warning: state-color(map.get($sys-light, warning), engage),
+  state-drag-warning: state-color(map.get($sys-light, warning), drag),
+  state-hover-info: state-color(map.get($sys-light, info), hover),
+  state-engage-info: state-color(map.get($sys-light, info), engage),
+  state-drag-info: state-color(map.get($sys-light, info), drag)
+    /*
+	accent-alt-tint: map.get(alt-colors.$accentAlt, lightTint),
+	accent-alt-middle: map.get(alt-colors.$accentAlt, lightMiddle),
+	accent-alt-shade: map.get(alt-colors.$accentAlt, lightShade),
+	*/,
+) !default;
+
+$semantic-dark: (
+  txt: map.get($sys-dark, onSurface),
+  txt-desc: map.get($sys-dark, onSurfaceVar),
+  placeholder: map.get($sys-dark, outline),
+  txt-on-fill: map.get($sys-dark, onPrimary),
+  txt-on-fill-secondary: map.get($sys-dark, onSecondary),
+  txt-on-fill-tertiary: map.get($sys-dark, onTertiary),
+  txt-on-bg-primary: map.get($sys-dark, onPrimaryContainer),
+  txt-on-bg-secondary: map.get($sys-dark, onSecondaryContainer),
+  txt-on-bg-tertiary: map.get($sys-dark, onTertiaryContainer),
+  txt-on-error: map.get($sys-dark, onError),
+  txt-on-error-bg: map.get($sys-dark, onErrorContainer),
+  txt-on-success: map.get($sys-dark, onSuccess),
+  txt-on-success-bg: map.get($sys-dark, onSuccessContainer),
+  txt-on-warning: map.get($sys-dark, onWarning),
+  txt-on-warning-bg: map.get($sys-dark, onWarningContainer),
+  txt-on-info: map.get($sys-dark, onInfo),
+  txt-on-info-bg: map.get($sys-dark, onInfoContainer),
+  txt-on-inverse-bg: map.get($sys-dark, inverseOnSurface),
+  txt-disabled: rgba(map.get($sys-dark, onSurface), 0.38),
+  fill: map.get($sys-dark, primary),
+  fill-secondary: map.get($sys-dark, secondary),
+  fill-tertiary: map.get($sys-dark, tertiary),
+  fill-neutral: map.get($sys-dark, surfaceContainerLowest),
+  fill-inverse-bg: map.get($sys-dark, inverseSurface),
+  fill-primary-inverse: map.get($sys-dark, inversePrimary),
+  fill-disabled: rgba(map.get($sys-dark, onSurface), 0.12),
+  bg: map.get($sys-dark, surface),
+  bg-layer: map.get($sys-dark, surfaceDim),
+  bg-primary: map.get($sys-dark, primaryContainer),
+  bg-secondary: map.get($sys-dark, secondaryContainer),
+  bg-tertiary: map.get($sys-dark, tertiaryContainer),
+  bg-active: map.get($sys-dark, surfaceBright),
+  bg-behind: map.get($sys-dark, surfaceContainerLow),
+  bg-modal: map.get($sys-dark, surfaceContainerHigh),
+  bg-emphasis: map.get($sys-dark, surfaceContainerHighest),
+  brd: map.get($sys-dark, outline),
+  brd-ghost: map.get($sys-dark, outlineVariant),
+  link: map.get($sys-dark, primary),
+  link-visited: map.get($sys-dark, outlineVariant),
+  link-hover: color.mix(
+      map.get($sys-dark, primary),
+      state-color(map.get($sys-dark, primary), hover)
+    ),
+  link-engage: color.mix(
+      map.get($sys-dark, primary),
+      state-color(map.get($sys-dark, primary), engage)
+    ),
+  status-error-bg: map.get($sys-dark, errorContainer),
+  status-success: map.get($sys-dark, success),
+  status-success-bg: map.get($sys-dark, successContainer),
+  status-warning: map.get($sys-dark, warning),
+  status-warning-bg: map.get($sys-dark, warningContainer),
+  status-info: map.get($sys-dark, info),
+  status-info-bg: map.get($sys-dark, infoContainer),
+  brand-tint: map.get(alt-colors.$myBrand, darkTint),
+  brand-middle: map.get(alt-colors.$myBrand, darkMiddle),
+  brand-shade: map.get(alt-colors.$myBrand, darkShade),
+  accent-tint: map.get(alt-colors.$accentAlt, lightTint),
+  accent-middle: map.get(alt-colors.$accentAlt, lightMiddle),
+  accent-shade: map.get(alt-colors.$accentAlt, lightShade),
+  accent-hover: color.mix(
+      map.get(alt-colors.$accentAlt, lightMiddle),
+      state-color(map.get(alt-colors.$accentAlt, lightMiddle), hover)
+    ),
+  accent-engage: color.mix(
+      map.get(alt-colors.$accentAlt, lightMiddle),
+      state-color(map.get(alt-colors.$accentAlt, lightMiddle), engage)
+    ),
+  state-hover-txt: state-color(map.get($sys-dark, onSurface), hover),
+  state-engage-txt: state-color(map.get($sys-dark, onSurface), engage),
+  state-drag-txt: state-color(map.get($sys-dark, onSurface), drag),
+  state-hover-txt-desc: state-color(map.get($sys-dark, onSurfaceVar), hover),
+  state-engage-txt-desc: state-color(map.get($sys-dark, onSurfaceVar), engage),
+  state-drag-txt-desc: state-color(map.get($sys-dark, onSurfaceVar), drag),
+  state-hover-txt-on-fill: state-color(map.get($sys-dark, onPrimary), hover),
+  state-engage-txt-on-fill: state-color(map.get($sys-dark, onPrimary), engage),
+  state-drag-txt-on-fill: state-color(map.get($sys-dark, onPrimary), drag),
+  state-hover-txt-on-fill-secondary: state-color(
+      map.get($sys-dark, onSecondary),
+      hover
+    ),
+  state-engage-txt-on-fill-secondary: state-color(
+      map.get($sys-dark, onSecondary),
+      engage
+    ),
+  state-drag-txt-on-fill-secondary: state-color(
+      map.get($sys-dark, onSecondary),
+      drag
+    ),
+  state-hover-txt-on-fill-tertiary: state-color(
+      map.get($sys-dark, onTertiary),
+      hover
+    ),
+  state-engage-txt-on-fill-tertiary: state-color(
+      map.get($sys-dark, onTertiary),
+      engage
+    ),
+  state-drag-txt-on-fill-tertiary: state-color(
+      map.get($sys-dark, onTertiary),
+      drag
+    ),
+  state-hover-txt-on-bg-primary: state-color(
+      map.get($sys-dark, onPrimaryContainer),
+      hover
+    ),
+  state-engage-txt-on-bg-primary: state-color(
+      map.get($sys-dark, onPrimaryContainer),
+      engage
+    ),
+  state-drag-txt-on-bg-primary: state-color(
+      map.get($sys-dark, onPrimaryContainer),
+      drag
+    ),
+  state-hover-txt-on-bg-secondary: state-color(
+      map.get($sys-dark, onSecondaryContainer),
+      hover
+    ),
+  state-engage-txt-on-bg-secondary: state-color(
+      map.get($sys-dark, onSecondaryContainer),
+      engage
+    ),
+  state-drag-txt-on-bg-secondary: state-color(
+      map.get($sys-dark, onSecondaryContainer),
+      drag
+    ),
+  state-hover-txt-on-bg-tertiary: state-color(
+      map.get($sys-dark, onTertiaryContainer),
+      hover
+    ),
+  state-engage-txt-on-bg-tertiary: state-color(
+      map.get($sys-dark, onTertiaryContainer),
+      engage
+    ),
+  state-drag-txt-on-bg-tertiary: state-color(
+      map.get($sys-dark, onTertiaryContainer),
+      drag
+    ),
+  state-hover-txt-on-error: state-color(map.get($sys-dark, onError), hover),
+  state-engage-txt-on-error: state-color(map.get($sys-dark, onError), engage),
+  state-drag-txt-on-error: state-color(map.get($sys-dark, onError), drag),
+  state-hover-txt-on-error-bg: state-color(
+      map.get($sys-dark, onErrorContainer),
+      hover
+    ),
+  state-engage-txt-on-error-bg: state-color(
+      map.get($sys-dark, onErrorContainer),
+      engage
+    ),
+  state-drag-txt-on-error-bg: state-color(
+      map.get($sys-dark, onErrorContainer),
+      drag
+    ),
+  state-hover-txt-on-success: state-color(map.get($sys-dark, onSuccess), hover),
+  state-engage-txt-on-success: state-color(
+      map.get($sys-dark, onSuccess),
+      engage
+    ),
+  state-drag-txt-on-success: state-color(map.get($sys-dark, onSuccess), drag),
+  state-hover-txt-on-success-bg: state-color(
+      map.get($sys-dark, onSuccessContainer),
+      hover
+    ),
+  state-engage-txt-on-success-bg: state-color(
+      map.get($sys-dark, onSuccessContainer),
+      engage
+    ),
+  state-drag-txt-on-success-bg: state-color(
+      map.get($sys-dark, onSuccessContainer),
+      drag
+    ),
+  state-hover-txt-on-warning: state-color(map.get($sys-dark, onWarning), hover),
+  state-engage-txt-on-warning: state-color(
+      map.get($sys-dark, onWarning),
+      engage
+    ),
+  state-drag-txt-on-warning: state-color(map.get($sys-dark, onWarning), drag),
+  state-hover-txt-on-warning-bg: state-color(
+      map.get($sys-dark, onWarningContainer),
+      hover
+    ),
+  state-engage-txt-on-warning-bg: state-color(
+      map.get($sys-dark, onWarningContainer),
+      engage
+    ),
+  state-drag-txt-on-warning-bg: state-color(
+      map.get($sys-dark, onWarningContainer),
+      drag
+    ),
+  state-hover-txt-on-info: state-color(map.get($sys-dark, onInfo), hover),
+  state-engage-txt-on-info: state-color(map.get($sys-dark, onInfo), engage),
+  state-drag-txt-on-info: state-color(map.get($sys-dark, onInfo), drag),
+  state-hover-txt-on-info-bg: state-color(
+      map.get($sys-dark, onInfoContainer),
+      hover
+    ),
+  state-engage-txt-on-info-bg: state-color(
+      map.get($sys-dark, onInfoContainer),
+      engage
+    ),
+  state-drag-txt-on-info-bg: state-color(
+      map.get($sys-dark, onInfoContainer),
+      drag
+    ),
+  state-hover-txt-on-inverse-bg: state-color(
+      map.get($sys-dark, inverseOnSurface),
+      hover
+    ),
+  state-engage-txt-on-inverse-bg: state-color(
+      map.get($sys-dark, inverseOnSurface),
+      engage
+    ),
+  state-drag-txt-on-inverse-bg: state-color(
+      map.get($sys-dark, inverseOnSurface),
+      drag
+    ),
+  state-hover-fill: state-color(map.get($sys-dark, primary), hover),
+  state-engage-fill: state-color(map.get($sys-dark, primary), engage),
+  state-drag-fill: state-color(map.get($sys-dark, primary), drag),
+  state-hover-fill-secondary: state-color(map.get($sys-dark, secondary), hover),
+  state-engage-fill-secondary: state-color(
+      map.get($sys-dark, secondary),
+      engage
+    ),
+  state-drag-fill-secondary: state-color(map.get($sys-dark, secondary), drag),
+  state-hover-fill-tertiary: state-color(map.get($sys-dark, tertiary), hover),
+  state-engage-fill-tertiary: state-color(map.get($sys-dark, tertiary), engage),
+  state-drag-fill-tertiary: state-color(map.get($sys-dark, tertiary), drag),
+  state-hover-fill-inverse-bg: state-color(
+      map.get($sys-dark, inverseSurface),
+      hover
+    ),
+  state-engage-fill-inverse-bg: state-color(
+      map.get($sys-dark, inverseSurface),
+      engage
+    ),
+  state-drag-fill-inverse-bg: state-color(
+      map.get($sys-dark, inverseSurface),
+      drag
+    ),
+  state-hover-fill-primary-inverse: state-color(
+      map.get($sys-dark, inversePrimary),
+      hover
+    ),
+  state-engage-fill-primary-inverse: state-color(
+      map.get($sys-dark, inversePrimary),
+      engage
+    ),
+  state-drag-fill-primary-inverse: state-color(
+      map.get($sys-dark, inversePrimary),
+      drag
+    ),
+  state-hover-error: state-color(map.get($sys-dark, error), hover),
+  state-engage-error: state-color(map.get($sys-dark, error), engage),
+  state-drag-error: state-color(map.get($sys-dark, error), drag),
+  state-hover-success: state-color(map.get($sys-dark, success), hover),
+  state-engage-success: state-color(map.get($sys-dark, success), engage),
+  state-drag-success: state-color(map.get($sys-dark, success), drag),
+  state-hover-warning: state-color(map.get($sys-dark, warning), hover),
+  state-engage-warning: state-color(map.get($sys-dark, warning), engage),
+  state-drag-warning: state-color(map.get($sys-dark, warning), drag),
+  state-hover-info: state-color(map.get($sys-dark, info), hover),
+  state-engage-info: state-color(map.get($sys-dark, info), engage),
+  state-drag-info: state-color(map.get($sys-dark, info), drag),
+  status-error: map.get($sys-dark, error)
+    /*
+	accent-tint: map.get(alt-colors.$accent, darkTint),
+	accent-middle: map.get(alt-colors.$accent, darkMiddle),
+	accent-shade: map.get(alt-colors.$accent, darkShade),
+	accent-alt-tint: map.get(alt-colors.$accentAlt, darkTint),
+	accent-alt-middle: map.get(alt-colors.$accentAlt, darkMiddle),
+	accent-alt-shade: map.get(alt-colors.$accentAlt, darkShade),
+	*/,
+) !default;

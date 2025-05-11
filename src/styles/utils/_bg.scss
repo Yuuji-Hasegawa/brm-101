@@ -1,0 +1,89 @@
+@use '../settings' as setting;
+@use 'sass:map';
+
+@layer utilities {
+  .u-bg-fll {
+    color: var(--c-txt-on-fill);
+    background: var(--c-fill);
+  }
+
+  .u-bg-fll-sec {
+    color: var(--c-txt-on-fill-secondary);
+    background: var(--c-fill-secondary);
+  }
+
+  .u-bg-fll-ter {
+    color: var(--c-txt-on-fill-tertiary);
+    background: var(--c-fill-tertiary);
+  }
+
+  .u-bg-fll-inv {
+    color: var(--c-txt-on-inverse-bg);
+    background: var(--c-fill-inverse-bg);
+  }
+
+  .u-bg-fll-err {
+    color: var(--c-txt-on-error);
+    background: var(--c-status-error);
+  }
+
+  .u-bg-fll-suc {
+    color: var(--c-txt-on-success);
+    background: var(--c-status-success);
+  }
+
+  .u-bg-fll-war {
+    color: var(--c-txt-on-warning);
+    background: var(--c-status-warning);
+  }
+
+  .u-bg-fll-inf {
+    color: var(--c-txt-on-info);
+    background: var(--c-status-info);
+  }
+
+  .u-bg-tnl {
+    color: var(--c-txt-on-bg-primary);
+    background: var(--c-bg-primary);
+  }
+
+  .u-bg-tnl-sec {
+    color: var(--c-txt-on-bg-secondary);
+    background: var(--c-bg-secondary);
+  }
+
+  .u-bg-tnl-ter {
+    color: var(--c-txt-on-bg-tertiary);
+    background: var(--c-bg-tertiary);
+  }
+
+  .u-bg-tnl-gry {
+    color: var(--c-txt-desc);
+    background: var(--c-bg-layer);
+  }
+
+  .u-bg-tnl-err {
+    color: var(--c-txt-on-error-bg);
+    background: var(--c-status-error-bg);
+  }
+
+  .u-bg-tnl-suc {
+    color: var(--c-txt-on-success-bg);
+    background: var(--c-status-success-bg);
+  }
+
+  .u-bg-tnl-war {
+    color: var(--c-txt-on-warning-bg);
+    background: var(--c-status-warning-bg);
+  }
+
+  .u-bg-tnl-inf {
+    color: var(--c-txt-on-info-bg);
+    background: var(--c-status-info-bg);
+  }
+
+  .u-bg-neu {
+    color: var(--c-txt);
+    background: var(--c-fill-neutral);
+  }
+}

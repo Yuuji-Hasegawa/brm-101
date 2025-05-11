@@ -1,0 +1,40 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Utility/Spaces" />
+
+# Spaces
+
+詳細は`/src/styles/utils/_spaces.scss`をご確認ください。
+
+# Margin
+
+- `.u-mg-*`:全ての方向に`margin`を適用
+- `.u-mx-*`:水平方向に同じ`margin`を適用
+- `.u-my-*`:垂直方向に同じ`margin`を適用
+- `.u-m*-*`:`margin-{t:top|r:right|b:bottom|l:left}:*`を個別に適用
+- 対応サイズ:`3xs` `2xs` `xs` `s` `m` `l` `xl` `2xl` `3xl` `4xl` `auto`
+
+# Padding
+
+- `.u-pd-*`:全ての方向に`padding`を適用
+- `.u-px-*`:水平方向に同じ`padding`を適用
+- `.u-py-*`:垂直方向に同じ`padding`を適用
+- `.u-p*-*`:`padding-{t:top|r:right|b:bottom|l:left}:*`を個別に適用
+- `.u-p*-clamp`:水平方向に`var(--s-clamp)`を適用
+- 対応サイズ:`3xs` `2xs` `xs` `s` `m` `l` `xl` `2xl` `3xl` `4xl`
+
+# Space
+
+- `.u-space-*`:`--custom-space`に`var(--s-*)`を設定
+- `.u-ins-*`:ローカル変数へ挿入する（対象：`cls` `sdb` `stc` `swt` `ctr` `grd` `rl`）
+- 対応サイズ: `3xs` `2xs` `xs` `s` `m` `l` `xl` `2xl` `3xl` `4xl` `clamp` `auto` `none`
+
+# width / height
+
+- `.u-w-max`:`width: 100%`を適用
+- `.u-h-max`:`height: 100%`を適用
+
+# maxWidth
+
+- `.u-mw-cnt`:`max-width: max-content`を適用
+- `.u-mw-r`:`$readableLength`または`$readableLengthEn`を`max-width`に適用

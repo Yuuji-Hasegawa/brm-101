@@ -1,0 +1,15 @@
+@layer layout {
+  .c-msk {
+    display: grid;
+
+    &__surf {
+      z-index: 1;
+      grid-area: 1 / 1;
+    }
+
+    &__src {
+      z-index: 0;
+      grid-area: 1 / 1;
+    }
+  }
+}

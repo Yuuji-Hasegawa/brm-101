@@ -1,0 +1,36 @@
+@use '../settings' as setting;
+@use 'sass:map';
+
+@layer layout {
+}
+
+@layer theme {
+  .c-a,
+  .c-entry a {
+    color: var(--c-link);
+
+    &:visited {
+      color: var(--c-link-visited);
+    }
+
+    &:hover {
+      color: var(--c-link-hover);
+    }
+
+    &:focus,
+    &:active {
+      color: var(--c-link-engage);
+    }
+  }
+
+  .c-entry a,
+  .c-a--und {
+    text-decoration: underline;
+
+    &:hover,
+    &:focus,
+    &:active {
+      text-decoration: none;
+    }
+  }
+}

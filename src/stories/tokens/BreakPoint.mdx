@@ -1,0 +1,294 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Tokens/BreakPoint" />
+
+# BreakPoint
+
+`styles/settings/_sizes.scss`で以下のように定義しています。
+
+```sass
+$breakxs: 481px; // Mobile
+$breaks: 641px;  // Tablet
+$breakm: 961px;  // Desktop
+```
+
+- `$breakxs`:スマートフォン (~480px)
+- `$breaks`:タブレット (~640px)
+- `$breakm`:PC/大型タブレット (~960px)
+
+# Media Query
+
+`styles/tools/_mediaqueries.scss`で以下のように定義しています。
+
+```sass
+@mixin max-screen($breakpoint) {
+  // 引数に設定された画面幅以下のスタイルを指定するメディアクエリ
+  @media screen and (max-width: $breakpoint) {
+    @content;
+  }
+}
+
+@mixin min-screen($breakpoint) {
+  // 引数に設定された画面幅以下のスタイルを指定するメディアクエリ
+  @media screen and (min-width: $breakpoint) {
+    @content;
+  }
+}
+
+// 印刷の設定
+@mixin print() {
+  @media print {
+    @content;
+  }
+}
+
+// ダークモードの設定
+@mixin darkmode() {
+  @media (prefers-color-scheme: dark) {
+    @content;
+  }
+}
+
+@mixin retina() {
+  @media screen and (min-device-pixel-ratio: 2),
+    screen and (resolution >= 192dpi),
+    screen and (resolution >= 2dppx) {
+    @content;
+  }
+}
+
+@mixin portrait() {
+  @media screen and (orientation: portrait) {
+    @content;
+  }
+}
+```
+
+# 閾値Map
+
+`styles/settings/_sizes.scss`で以下のように定義しています。
+
+```sass
+$breakpoints: (
+  underxs: calc((($breakxs - 1px) - 100vw) * 999),
+  unders: calc((($breaks - 1px) - 100vw) * 999),
+  underm: calc((($breakm - 1px) - 100vw) * 999),
+  overxs: calc((100vw - ($breakxs - 1px)) * 999),
+  overs: calc((100vw - ($breaks - 1px)) * 999),
+  overm: calc((100vw - ($breakm - 1px)) * 999),
+) !default;
+```
+
+# 使用例
+
+```sass
+@use '../settings' as setting;
+@use '../tools' as tool;
+
+.u-pc-none {
+  @include tool.min-screen(setting.$breakm) {
+    display: none;
+  }
+}
+
+.u-pc-only {
+  @include tool.max-screen(setting.$breakm - 1px) {
+    display: none;
+  }
+}
+```
+
+# Media Query
+
+```sass
+@use '../settings' as setting;
+@use '../tools' as tool;
+
+@each $key, $name in setting.$semantic-light {
+  --c-#{$key}: #{($name)};
+}
+
+@include tool.darkmode {
+  @each $key, $name in setting.$semantic-dark {
+    --c-#{$key}: #{($name)};
+  }
+}
+```
+
+- `$semantic-light`:`styles/settings/_colors.scss`で定義した**lightモード**用のカラー
+- `$semantic-dark`:`styles/settings/_colors.scss`で定義した**darkモード**用のカラー
+
+# map.get(breakpoints)
+
+```sass
+@use '../settings' as setting;
+@use 'sass:map';
+.c-map-tbl {
+  width: 100%;
+
+  &__key,
+  &__val {
+    border-style: solid;
+  }
+
+  &__key {
+    flex-grow: 1;
+    flex-basis: var(--map-tbl-key-width, 260px);
+    border-width: 1px clamp(0px, map.get(setting.$breakpoints, underm), 1px) 0
+      1px;
+
+    .c-map-tbl tr:last-of-type & {
+      border-bottom-width: clamp(
+        0px,
+        map.get(setting.$breakpoints, overm),
+        1px
+      );
+  	}
+  }
+
+  &__val {
+    flex-grow: 999;
+    flex-basis: 0;
+    min-width: clamp(
+      calc(100% - var(--map-tbl-key-width, 260px)),
+      map.get(setting.$breakpoints, underm),
+      100%
+    );
+    border-width: 1px 1px 0;
+
+    .c-map-tbl tr:last-of-type & {
+      border-bottom-width: 1px;
+    }
+  }
+}
+
+```
+
+- `border-width`を`clamp(0px, breakpoint, 1px)`と指定することで、メディアクエリを使わずにレスポンシブ制御が可能です。
+- `@media`クエリによるスタイルの上書きではなく、計算による切り替えなので、スタイルの衝突や優先順位の複雑化を避けられます。
+- `$breakpoints`としてマップ形式で管理することで、clamp関数での指定を簡潔にでき、保守性・再利用性も優れています。
+
+```sass
+@use '../settings' as setting;
+@use 'sass:map';
+
+--s-clamp: clamp(
+  clamp(
+    #{setting.f-get-space(m)},
+    #{map.get(setting.$breakpoints, overm)},
+    #{setting.f-get-space(xl)}
+  ),
+  #{map.get(setting.$breakpoints, overs)},
+  clamp(
+    #{setting.f-get-space(xl)},
+    #{map.get(setting.$breakpoints, overm)},
+    #{setting.f-get-space(3xl)}
+  )
+);
+```
+
+- 入れ子にした`clamp()`によって、ブレイクポイントを基準とした段階的な最小・最大値の更新が可能。
+- 複雑な`clamp()`の入れ子構造も、カスタムプロパティとして定義することで、可読性と再利用性を両立可能。
+- メディアクエリを使わずに、レスポンシブ制御が可能。
+
+```sass
+.o-grd--t {
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(
+      clamp(
+        clamp(
+          (100% - var(--grd-gtt, setting.f-get-space(l)) * 2) / 3,
+          map.get(setting.$breakpoints, underm),
+          (50% - var(--grd-gtt, setting.f-get-space(l)) * 0.5)
+        ),
+        map.get(setting.$breakpoints, underm),
+        clamp(
+          (50% - var(--grd-gtt, setting.f-get-space(l)) * 0.5),
+          map.get(setting.$breakpoints, unders),
+          100%
+        )
+      ),
+      1fr
+    )
+  );
+}
+
+.o-grd--q {
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(
+      clamp(
+        clamp(
+          (100% - var(--grd-gtt, setting.f-get-space(l)) * 3) / 4,
+          map.get(setting.$breakpoints, underm),
+          (50% - var(--grd-gtt, setting.f-get-space(l)) * 0.5)
+        ),
+        map.get(setting.$breakpoints, underm),
+        clamp(
+          (50% - var(--grd-gtt, setting.f-get-space(l)) * 0.5),
+          map.get(setting.$breakpoints, unders),
+          100%
+        )
+      ),
+      1fr
+    )
+  );
+}
+```
+
+- `.o-grd--t`(tri)の場合、`unders`以下では1カラム、`underm`以下では2カラム、`underm`以上では3カラム。
+- `.o-grd--q`(quart)の場合、`underm`以下までは、`.o-grd--t`と同様の挙動で、`underm`以上では4カラム。
+- `display:grid`の`gap`にはカスタムプロパティ`--grd-gtt`を設定しているため、外部から値を注入可能
+
+# Readable Width
+
+`styles/settings/_sizes.scss`で以下のように定義しています。
+
+```sass
+$readableLength: 40em;
+$readableLengthEn: 70em;
+```
+
+`styles/utils/_spaces.scss`で以下のようにヘルパーを定義しています。
+
+```sass
+@use '../settings' as setting;
+@use 'sass:map';
+
+.u-mw-r {
+  max-width: setting.$readableLength;
+
+  html:lang(en) & {
+    max-width: setting.$readableLengthEn;
+  }
+}
+```
+
+- `$readableLength`は全角で読みやすい文字数
+- `$readableLengthEn`は半角で読みやすい文字数
+- `.u-mw-r`は、読みやすさを考慮した`max-width`を制限するヘルパークラス
+
+```html
+<html lang="ja">
+	<head>
+		<title>Documents</title>
+	</head>
+	<body>
+		<main style="width: 100%">
+			<p class="u-mw-r u-mx-auto">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+			<!-- u-mw-rの幅で水平中央揃え -->
+		</main>
+	</body>
+</html>
+```
+
+# menuWidth
+
+`styles/settings/_sizes.scss`で以下のように定義しています。
+
+```sass
+$menuWidth: 240px;
+```
+
+- **dropdown**や**drawer**の基準値

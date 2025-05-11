@@ -1,0 +1,35 @@
+@use '../settings' as setting;
+@use '../tools' as tool;
+@use 'sass:map';
+
+@layer utilities {
+  $displays: (
+    blc: block,
+    ibc: inline-block,
+    flx: flex,
+    ifx: inline-flex,
+    tbl: table,
+  ) !default;
+
+  @each $prefix, $display in $displays {
+    .u-dsp-#{$prefix} {
+      display: $display;
+    }
+  }
+
+  .u-pc-none {
+    @include tool.min-screen(setting.$breakm) {
+      display: none;
+    }
+  }
+
+  .u-pc-only {
+    @include tool.max-screen(setting.$breakm - 1px) {
+      display: none;
+    }
+  }
+
+  .u-pos-r {
+    position: relative;
+  }
+}

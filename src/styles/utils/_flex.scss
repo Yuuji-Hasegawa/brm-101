@@ -1,0 +1,17 @@
+@layer utilities {
+  .u-flx-shn {
+    flex-shrink: 0;
+  }
+
+  .u-flx-ctr {
+    justify-content: center;
+  }
+
+  .u-flx-y-ctr {
+    align-items: center;
+  }
+
+  .u-flx-y-b {
+    align-items: baseline;
+  }
+}

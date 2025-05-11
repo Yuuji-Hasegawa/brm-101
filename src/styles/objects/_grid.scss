@@ -1,0 +1,69 @@
+@use '../settings' as setting;
+@use 'sass:map';
+
+@layer layout {
+  .o-grd {
+    display: grid;
+    gap: var(--grd-gtt, setting.f-get-space(l));
+  }
+}
+
+@layer theme {
+  .o-grd--h {
+    grid-template-columns: repeat(
+      auto-fill,
+      minmax(
+        clamp(
+          (50% - var(--grd-gtt, setting.f-get-space(l)) * 0.5),
+          map.get(setting.$breakpoints, underm),
+          100%
+        ),
+        1fr
+      )
+    );
+  }
+
+  .o-grd--t {
+    grid-template-columns: repeat(
+      auto-fill,
+      minmax(
+        clamp(
+          clamp(
+            (100% - var(--grd-gtt, setting.f-get-space(l)) * 2) / 3,
+            map.get(setting.$breakpoints, underm),
+            (50% - var(--grd-gtt, setting.f-get-space(l)) * 0.5)
+          ),
+          map.get(setting.$breakpoints, underm),
+          clamp(
+            (50% - var(--grd-gtt, setting.f-get-space(l)) * 0.5),
+            map.get(setting.$breakpoints, unders),
+            100%
+          )
+        ),
+        1fr
+      )
+    );
+  }
+
+  .o-grd--q {
+    grid-template-columns: repeat(
+      auto-fill,
+      minmax(
+        clamp(
+          clamp(
+            (100% - var(--grd-gtt, setting.f-get-space(l)) * 3) / 4,
+            map.get(setting.$breakpoints, underm),
+            (50% - var(--grd-gtt, setting.f-get-space(l)) * 0.5)
+          ),
+          map.get(setting.$breakpoints, underm),
+          clamp(
+            (50% - var(--grd-gtt, setting.f-get-space(l)) * 0.5),
+            map.get(setting.$breakpoints, unders),
+            100%
+          )
+        ),
+        1fr
+      )
+    );
+  }
+}

@@ -1,0 +1,11 @@
+@use '../settings' as setting;
+
+@layer layout {
+  .o-ctr {
+    box-sizing: content-box;
+    padding-right: var(--ctr-pd, setting.f-get-space(m));
+    padding-left: var(--ctr-pd, setting.f-get-space(m));
+    margin-right: auto;
+    margin-left: auto;
+  }
+}

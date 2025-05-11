@@ -1,0 +1,53 @@
+@use '../settings' as setting;
+@use '../tools' as tool;
+@use 'sass:map';
+
+@layer layout {
+  .c-crd {
+  }
+}
+
+@layer theme {
+  .c-crd {
+    color: var(--c-txt);
+    background: var(--c-fill-neutral);
+    box-shadow: map.get(setting.$shadows, layer);
+
+    &--link {
+      outline-style: solid;
+      outline-color: transparent;
+      outline-offset: 2px;
+
+      &:hover {
+        background: color-mix(
+          in oklab,
+          var(--c-fill-neutral),
+          var(--c-state-hover-txt)
+        );
+      }
+
+      &:focus {
+        outline-color: color-mix(
+          in oklab,
+          var(--c-fill),
+          var(--c-state-engage-fill)
+        );
+      }
+
+      &:focus,
+      &:active {
+        background: color-mix(
+          in oklab,
+          var(--c-fill-neutral),
+          var(--c-state-engage-txt)
+        );
+      }
+
+      &:hover,
+      &:focus,
+      &:active {
+        box-shadow: map.get(setting.$shadows, elevate);
+      }
+    }
+  }
+}

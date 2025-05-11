@@ -1,0 +1,397 @@
+@use '../settings' as setting;
+@use '../tools' as tool;
+@use 'sass:map';
+
+@layer layout {
+  .c-btn {
+    cursor: pointer;
+    outline-style: solid;
+    outline-offset: 2px;
+    transition: all 0.3s ease-in-out;
+
+    &--sq {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 44px;
+      min-height: 44px;
+      aspect-ratio: 1 / 1;
+    }
+  }
+}
+
+@layer theme {
+  .c-btn {
+    &:focus {
+      outline-color: color-mix(
+        in oklab,
+        var(--c-fill),
+        var(--c-state-engage-fill)
+      );
+    }
+
+    &--fll,
+    &--fll-sec,
+    &--fll-ter,
+    &--fll-inv,
+    &--tnl,
+    &--tnl-sec,
+    &--tnl-ter,
+    &--tnl-gry,
+    &--elv,
+    &--txt {
+      border-color: transparent;
+    }
+
+    &--elv,
+    &--txt,
+    &--lne {
+      color: var(--c-txt);
+      background: var(--c-bg);
+
+      &:hover {
+        background: color-mix(in oklab, var(--c-bg), var(--c-state-hover-txt));
+      }
+
+      &:focus,
+      &:active {
+        background: color-mix(in oklab, var(--c-bg), var(--c-state-engage-txt));
+      }
+    }
+
+    &--fll {
+      color: var(--c-txt-on-fill);
+      background: var(--c-fill);
+
+      &:hover {
+        background: color-mix(
+          in oklab,
+          var(--c-fill),
+          var(--c-state-hover-txt-on-fill)
+        );
+      }
+
+      &:focus,
+      &:active {
+        background: color-mix(
+          in oklab,
+          var(--c-fill),
+          var(--c-state-engage-txt-on-fill)
+        );
+      }
+    }
+
+    &--fll-sec {
+      color: var(--c-txt-on-fill-secondary);
+      background: var(--c-fill-secondary);
+
+      &:hover {
+        background: color-mix(
+          in oklab,
+          var(--c-fill-secondary),
+          var(--c-state-hover-txt-on-fill-secondary)
+        );
+      }
+
+      &:focus,
+      &:active {
+        background: color-mix(
+          in oklab,
+          var(--c-fill-secondary),
+          var(--c-state-engage-txt-on-fill-secondary)
+        );
+      }
+    }
+
+    &--fll-ter {
+      color: var(--c-txt-on-fill-tertiary);
+      background: var(--c-fill-tertiary);
+
+      &:hover {
+        background: color-mix(
+          in oklab,
+          var(--c-fill-tertiary),
+          var(--c-state-hover-txt-on-fill-tertiary)
+        );
+      }
+
+      &:focus,
+      &:active {
+        background: color-mix(
+          in oklab,
+          var(--c-fill-tertiary),
+          var(--c-state-engage-txt-on-fill-tertiary)
+        );
+      }
+    }
+
+    &--fll-inv {
+      color: var(--c-txt-on-inverse-bg);
+      background: var(--c-fill-inverse-bg);
+
+      &:hover {
+        background: color-mix(
+          in oklab,
+          var(--c-fill-inverse-bg),
+          var(--c-state-hover-txt-on-inverse-bg)
+        );
+      }
+
+      &:focus,
+      &:active {
+        background: color-mix(
+          in oklab,
+          var(--c-fill-inverse-bg),
+          var(--c-state-engage-txt-on-inverse-bg)
+        );
+      }
+    }
+
+    &--tnl {
+      color: var(--c-txt-on-bg-primary);
+      background: var(--c-bg-primary);
+
+      &:hover {
+        background: color-mix(
+          in oklab,
+          var(--c-bg-primary),
+          var(--c-state-hover-txt-on-bg-primary)
+        );
+      }
+
+      &:focus,
+      &:active {
+        background: color-mix(
+          in oklab,
+          var(--c-bg-primary),
+          var(--c-state-engage-txt-on-bg-primary)
+        );
+      }
+    }
+
+    &--tnl-sec {
+      color: var(--c-txt-on-bg-secondary);
+      background: var(--c-bg-secondary);
+
+      &:hover {
+        background: color-mix(
+          in oklab,
+          var(--c-bg-secondary),
+          var(--c-state-hover-txt-on-bg-secondary)
+        );
+      }
+
+      &:focus,
+      &:active {
+        background: color-mix(
+          in oklab,
+          var(--c-bg-secondary),
+          var(--c-state-engage-txt-on-bg-secondary)
+        );
+      }
+    }
+
+    &--tnl-ter {
+      color: var(--c-txt-on-bg-tertiary);
+      background: var(--c-bg-tertiary);
+
+      &:hover {
+        background: color-mix(
+          in oklab,
+          var(--c-bg-tertiary),
+          var(--c-state-hover-txt-on-bg-tertiary)
+        );
+      }
+
+      &:focus,
+      &:active {
+        background: color-mix(
+          in oklab,
+          var(--c-bg-tertiary),
+          var(--c-state-engage-txt-on-bg-tertiary)
+        );
+      }
+    }
+
+    &--tnl-gry {
+      color: var(--c-txt-desc);
+      background: var(--c-bg-layer);
+      border-color: var(--c-brd-ghost);
+
+      &:hover {
+        background: color-mix(
+          in oklab,
+          var(--c-bg-layer),
+          var(--c-state-hover-txt-desc)
+        );
+        border-color: color-mix(
+          in oklab,
+          var(--c-brd-ghost),
+          var(--c-state-hover-txt-desc)
+        );
+      }
+
+      &:focus,
+      &:active {
+        background: color-mix(
+          in oklab,
+          var(--c-bg-layer),
+          var(--c-state-engage-txt-desc)
+        );
+        border-color: color-mix(
+          in oklab,
+          var(--c-brd-ghost),
+          var(--c-state-engage-txt-desc)
+        );
+      }
+    }
+
+    &--elv {
+      box-shadow: map.get(setting.$shadows, elevate);
+
+      &:hover,
+      &:focus,
+      &:active {
+        box-shadow: map.get(setting.$shadows, moved);
+      }
+    }
+
+    &--lne {
+      border-color: var(--c-brd);
+
+      &:hover {
+        border-color: color-mix(
+          in oklab,
+          var(--c-brd),
+          var(--c-state-hover-txt)
+        );
+      }
+
+      &:focus,
+      &:active {
+        border-color: color-mix(
+          in oklab,
+          var(--c-brd),
+          var(--c-state-engage-txt)
+        );
+      }
+    }
+
+    &--copy {
+      width: calc(
+        setting.f-get-space(m) * map.get(setting.$lineHeight, l) +
+          setting.f-get-space(s) * 2 + 2px
+      );
+    }
+
+    &--hbg {
+      outline-color: transparent;
+    }
+
+    &--go-top {
+      position: fixed;
+      right: setting.f-get-space(l);
+      bottom: setting.f-get-space(l);
+      z-index: 998;
+      pointer-events: none;
+      visibility: hidden;
+      outline-color: transparent;
+      opacity: 0;
+
+      &::after {
+        width: setting.f-get-space(s);
+        height: setting.f-get-space(s);
+        margin-top: 2px;
+        content: '';
+        border-style: solid;
+        border-width: 1px 1px 0 0;
+        transform: rotate(-45deg);
+      }
+
+      &.is-view {
+        bottom: setting.f-get-space(2xl);
+        pointer-events: auto;
+        visibility: visible;
+        box-shadow: map.get(setting.$shadows, float);
+        opacity: 1;
+
+        body:has(.grecaptcha-badge) & {
+          bottom: setting.f-get-space(3xl);
+        }
+
+        &:hover,
+        &:active,
+        &:focus {
+          box-shadow: map.get(setting.$shadows, moved);
+        }
+      }
+    }
+
+    &:disabled {
+      color: var(--c-txt-disabled);
+      cursor: not-allowed;
+      background: var(--c-fill-disabled);
+      border-color: transparent;
+    }
+  }
+
+  .c-icn-cpy {
+    .c-btn--copy:disabled & {
+      display: none;
+    }
+  }
+
+  .c-icn-chk {
+    display: none;
+    color: var(--c-link-engage);
+
+    .c-btn--copy:disabled & {
+      display: block;
+    }
+  }
+
+  .c-hbg-bars {
+    position: relative;
+    width: setting.f-get-space(l);
+    color: var(--c-txt);
+
+    .c-btn--hbg[aria-expanded='true'] & {
+      background-color: transparent;
+    }
+
+    &::before,
+    &::after {
+      position: absolute;
+      width: 100%;
+      content: '';
+      transition: all 0.3s ease-in-out;
+
+      .c-btn--hbg[aria-expanded='true'] & {
+        top: 0;
+      }
+    }
+
+    &::before {
+      top: -9px;
+
+      .c-btn--hbg[aria-expanded='true'] & {
+        transform: rotate(-45deg);
+      }
+    }
+
+    &::after {
+      top: 9px;
+
+      .c-btn--hbg[aria-expanded='true'] & {
+        transform: rotate(45deg);
+      }
+    }
+  }
+
+  .c-hbg-bars,
+  .c-hbg-bars::before,
+  .c-hbg-bars::after {
+    height: 1px;
+    background: currentcolor;
+  }
+}

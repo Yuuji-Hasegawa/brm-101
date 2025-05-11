@@ -1,0 +1,21 @@
+@use 'sass:map';
+@use '../settings' as setting;
+
+@layer layout {
+  .c-bc-item:not(:last-of-type)::after {
+    display: inline-flex;
+    width: setting.f-get-space(s);
+    height: setting.f-get-space(s);
+    margin-left: setting.f-get-space(s);
+    content: '';
+    border-style: solid;
+    border-width: 1px 1px 0 0;
+    transform: rotate(45deg) translate(-1px, -1px);
+  }
+}
+
+@layer theme {
+  .c-bc-item:not(:last-of-type)::after {
+    border-color: var(--c-brd);
+  }
+}

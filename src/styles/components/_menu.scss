@@ -1,0 +1,61 @@
+@use '../settings' as setting;
+@use 'sass:map';
+
+@layer layout {
+  .j-menu {
+    position: fixed;
+    top: 0;
+    right: calc(-1 * (setting.$menuWidth + (2 * var(--s-clamp))));
+    z-index: 999;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: calc(setting.$menuWidth + (2 * var(--s-clamp)));
+    height: 100%;
+    overflow-y: auto;
+    pointer-events: none;
+    visibility: hidden;
+    box-shadow: map.get(setting.$shadows, elevate);
+    opacity: 0;
+    transition: all 0.3s ease-in-out;
+
+    &.is-open {
+      right: 0;
+      pointer-events: auto;
+      visibility: visible;
+      opacity: 1;
+
+      body:has(&) {
+        overflow: hidden;
+      }
+
+      & + .c-menu-bg {
+        display: block;
+        pointer-events: auto;
+        visibility: visible;
+        opacity: 1;
+      }
+    }
+  }
+
+  .c-menu-bg {
+    position: fixed;
+    inset: 0;
+    z-index: 998;
+    display: none;
+    pointer-events: none;
+    cursor: pointer;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.3s ease-in-out;
+  }
+}
+
+@layer theme {
+  .j-menu {
+    background: var(--c-bg-modal);
+  }
+
+  .c-menu-bg {
+    background: rgba(map.get(setting.$sys-light, scrim), setting.$scrim-ratio);
+  }
+}

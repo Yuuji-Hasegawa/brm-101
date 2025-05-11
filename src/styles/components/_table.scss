@@ -1,0 +1,124 @@
+@use '../settings' as setting;
+@use 'sass:map';
+
+@layer layout {
+  .c-rl-tbl,
+  .c-entry > table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    border: solid 1px;
+
+    tbody {
+      display: table;
+      width: 100%;
+
+      th,
+      td {
+        white-space: nowrap;
+      }
+
+      tr:first-child {
+        th:not(:last-child) {
+          border-right: solid 1px;
+        }
+      }
+
+      tr:not(:first-child) {
+        th,
+        td {
+          border-top: solid 1px;
+        }
+
+        th,
+        td:not(:last-child) {
+          border-right: solid 1px;
+        }
+      }
+    }
+  }
+
+  .c-map-tbl {
+    width: 100%;
+
+    &__key,
+    &__val {
+      border-style: solid;
+    }
+
+    &__key {
+      flex-grow: 1;
+      flex-basis: var(--map-tbl-key-width, 260px);
+      border-width: 1px clamp(0px, map.get(setting.$breakpoints, underm), 1px) 0
+        1px;
+
+      .c-map-tbl tr:last-of-type & {
+        border-bottom-width: clamp(
+          0px,
+          map.get(setting.$breakpoints, overm),
+          1px
+        );
+      }
+    }
+
+    &__val {
+      flex-grow: 999;
+      flex-basis: 0;
+      min-width: clamp(
+        calc(100% - var(--map-tbl-key-width, 260px)),
+        map.get(setting.$breakpoints, underm),
+        100%
+      );
+      border-width: 1px 1px 0;
+
+      .c-map-tbl tr:last-of-type & {
+        border-bottom-width: 1px;
+      }
+    }
+  }
+}
+
+@layer theme {
+  .c-rl-tbl {
+    border-color: var(--rl-tbl-brd, var(--c-brd));
+
+    th {
+      color: var(--rl-tbl-th-color, var(--c-txt));
+      background-color: var(--rl-tbl-th-bg, var(--c-bg-modal));
+    }
+
+    td {
+      background: var(--rl-tbl-td-bg, var(--c-bg));
+    }
+
+    tr:first-child {
+      th:not(:last-child) {
+        border-color: var(--rl-tbl-brd, var(--c-brd));
+      }
+    }
+
+    tr:not(:first-child) {
+      th,
+      td {
+        border-color: var(--rl-tbl-brd, var(--c-brd));
+      }
+
+      th,
+      td:not(:last-child) {
+        border-color: var(--rl-tbl-brd, var(--c-brd));
+      }
+    }
+  }
+
+  .c-map-tbl {
+    &__key,
+    &__val {
+      border-color: var(--map-tbl-brd, var(--c-brd));
+    }
+
+    &__key {
+      color: var(--map-tbl-key-color, var(--c-txt));
+      background: var(--map-tbl-key-bg, var(--c-bg-modal));
+    }
+  }
+}

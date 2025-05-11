@@ -1,0 +1,45 @@
+@use '../settings' as setting;
+@use 'sass:map';
+
+@layer layout {
+  .c-ul,
+  .c-entry > ul {
+    padding-left: setting.f-get-space(l, em);
+    list-style-position: outside;
+    list-style-type: disc;
+  }
+
+  .c-ol,
+  .c-entry > ol {
+    counter-set: primary;
+
+    & > li {
+      position: relative;
+      padding-left: calc(2 * setting.f-get-space(m, em));
+      counter-increment: primary;
+
+      &::before {
+        position: absolute;
+        top: 0;
+        left: 0;
+        content: counter(primary, decimal-leading-zero) '.';
+      }
+    }
+  }
+
+  .c-ol--alt,
+  .c-entry > ol > ol {
+    counter-set: secondary;
+
+    & > li {
+      padding-left: calc(
+        setting.f-get-space(l, em) + setting.f-get-space(m, em)
+      );
+      counter-increment: secondary;
+
+      &::before {
+        content: '(' counter(secondary, decimal-leading-zero) ')';
+      }
+    }
+  }
+}

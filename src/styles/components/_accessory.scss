@@ -1,0 +1,103 @@
+@use '../settings' as setting;
+@use 'sass:map';
+
+@layer layout {
+  .c-fld {
+    flex-grow: 1;
+    flex-basis: map.get(setting.$breakpoints, unders);
+  }
+
+  .c-fld-lim {
+    width: min(map.get(setting.$breakpoints, overs), 100%);
+    min-width: max-content;
+  }
+
+  .c-fld-fit {
+    flex-basis: map.get(setting.$breakpoints, unders);
+    min-width: fit-content;
+  }
+
+  .c-fld-push {
+    min-width: min(map.get(setting.$breakpoints, unders), 100%);
+  }
+
+  .c-note {
+    position: relative;
+    padding-left: setting.f-get-space(l, em);
+
+    &::before {
+      position: absolute;
+      left: 0;
+      font-size: inherit;
+      font-weight: inherit;
+      content: '※';
+    }
+  }
+
+  .c-toc {
+    border-color: transparent;
+    transition: all 0.3s ease-in-out;
+
+    &[aria-hidden='true'] {
+      content-visibility: hidden;
+      contain: content;
+      @supports not (content-visibility: hidden) {
+        & {
+          display: none;
+        }
+      }
+    }
+
+    &__hd {
+      .o-icn:last-of-type {
+        position: absolute;
+        top: 50%;
+        right: 1rem;
+        transition: all 0.3s ease-in-out;
+        transform: translateY(-50%);
+
+        .c-toc[open] & {
+          transform: translateY(-50%) rotate(180deg);
+        }
+      }
+    }
+  }
+}
+
+@layer theme {
+  .c-toc {
+    background: var(--c-bg-behind);
+    border-color: var(--c-brd-ghost);
+    outline-style: solid;
+    outline-offset: 2px;
+
+    &:hover {
+      background-color: color-mix(
+        in oklab,
+        var(--c-bg-behind),
+        var(--c-state-hover-txt)
+      );
+      border-color: color-mix(
+        in oklab,
+        var(--c-brd-ghost),
+        var(--c-state-hover-txt)
+      );
+    }
+
+    &:active {
+      background-color: color-mix(
+        in oklab,
+        var(--c-bg-behind),
+        var(--c-state-engage-txt)
+      );
+      border-color: color-mix(
+        in oklab,
+        var(--c-brd-ghost),
+        var(--c-state-engage-txt)
+      );
+    }
+
+    &__hd {
+    }
+  }
+}

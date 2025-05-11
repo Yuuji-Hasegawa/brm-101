@@ -1,0 +1,16 @@
+@use '../settings' as setting;
+@use 'sass:map';
+
+@layer utilities {
+  .u-level-s {
+    box-shadow: map.get(setting.$shadows, layer);
+  }
+
+  .u-level-m {
+    box-shadow: map.get(setting.$shadows, elevate);
+  }
+
+  .u-level-l {
+    box-shadow: map.get(setting.$shadows, float);
+  }
+}

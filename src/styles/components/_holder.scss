@@ -1,0 +1,26 @@
+@use '../settings' as setting;
+@use '../tools' as tool;
+@use 'sass:map';
+
+@layer layout {
+  .c-hld-spn {
+    display: grid;
+    grid-template-columns: var(--avatar-width, 50px) auto;
+    gap: var(--spn-gutter, setting.f-get-space(m));
+  }
+
+  .c-hld-bio {
+  }
+}
+
+@layer theme {
+  .c-hld-spn {
+  }
+
+  .c-hld-bio {
+  }
+
+  .c-avatar {
+    flex-basis: 100px;
+  }
+}

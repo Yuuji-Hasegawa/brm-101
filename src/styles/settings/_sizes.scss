@@ -1,0 +1,78 @@
+@use 'sass:map';
+@use 'sass:math';
+
+$readableLength: 40em;
+$readableLengthEn: 70em;
+$menuWidth: 240px;
+$ratio: math.div((1 + sqrt(5)), 2);
+$silver-ratio: math.sqrt(2);
+$bronze-ratio: math.div((3 + math.sqrt(13)), 2);
+$spacePx: 8px;
+$spaceRem: 0.5rem;
+$spaceEm: 0.5em;
+
+$spaceScale: (
+  3xs: math.div(math.div(math.div(1, $ratio), $ratio), $ratio),
+  2xs: math.div(math.div(1, $ratio), $ratio),
+  xs: math.div(1, $ratio),
+  s: 1,
+  m: 2,
+  l: 3,
+  xl: 5,
+  2xl: 8,
+  3xl: 13,
+  4xl: 21,
+  auto: auto,
+) !default;
+
+@function f-get-space($scale, $unit: px) {
+  $spaceSize: map.get($spaceScale, $scale);
+  @if $unit == em {
+    @return $spaceEm * $spaceSize;
+  } @else if $unit == rem {
+    @return $spaceRem * $spaceSize;
+  } @else {
+    @return $spacePx * $spaceSize;
+  }
+}
+
+$borderRadius: (
+  s: f-get-space(xs),
+  m: f-get-space(s),
+  l: f-get-space(m),
+  r: 50%,
+) !default;
+
+$breakxs: 481px;
+$breaks: 641px;
+$breakm: 961px;
+$breakpoints: (
+  underxs: calc((($breakxs - 1px) - 100vw) * 999),
+  unders: calc((($breaks - 1px) - 100vw) * 999),
+  underm: calc((($breakm - 1px) - 100vw) * 999),
+  overxs: calc((100vw - ($breakxs - 1px)) * 999),
+  overs: calc((100vw - ($breaks - 1px)) * 999),
+  overm: calc((100vw - ($breakm - 1px)) * 999),
+) !default;
+
+$aspect: (
+  sq: '1/1',
+  s: '3/2',
+  m: '4/3',
+  l: '16/9',
+  ys: '2/3',
+  ym: '3/4',
+  yl: '9/16',
+  ppr: $silver-ratio + '/1',
+  yppr: '1/' + $silver-ratio,
+  brz: $bronze-ratio + '/1',
+  ybrz: '1/' + $bronze-ratio,
+  xbnr: '8/1',
+  ybnr: '1/2',
+  //mbnr: '2/3', /* mobile bnr */
+  fbnr: '39/5',
+  hbnr: '39/10',
+  //lbnr: '8/1', /* leader board bnr */
+  rbnr: '6/5',
+  wsbnr: '4/15',
+) !default;

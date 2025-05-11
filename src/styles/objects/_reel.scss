@@ -1,0 +1,14 @@
+@use '../settings' as setting;
+
+@layer layout {
+  .o-rl {
+    display: flex;
+    gap: var(--rl-gtt, setting.f-get-space(m));
+    padding-bottom: setting.f-get-space(s);
+    overflow: auto hidden;
+
+    & > * {
+      flex: 0 0 auto;
+    }
+  }
+}

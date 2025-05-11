@@ -1,0 +1,26 @@
+@use '../settings' as setting;
+@use 'sass:map';
+
+@layer layout {
+  .c-tip {
+    position: absolute;
+    z-index: 2;
+    display: none;
+    white-space: nowrap;
+    pointer-events: none;
+    transition: all 0.3s ease-in-out;
+  }
+}
+@layer theme {
+  .c-tip {
+    &--cpy {
+      right: 0;
+      bottom: calc(100% + setting.f-get-space(2xs));
+      background: var(--c-bg-emphasis);
+
+      .c-btn--copy:hover + & {
+        display: block;
+      }
+    }
+  }
+}

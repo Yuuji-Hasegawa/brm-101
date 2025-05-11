@@ -1,0 +1,104 @@
+@use '../settings' as setting;
+@use 'sass:map';
+
+@layer utilities {
+  $positions: (top, right, bottom, left);
+  $targets: (
+    cls: cls-gtt,
+    sdb: sdb-gtt,
+    stc: stc-mt,
+		swt: swt-gtt,
+    ctr: ctr-pd,
+		grd: grd-gtt,
+    rl: rl-gtt,
+  ) !default;
+
+  @each $key, $name in setting.$spaceScale {
+    @each $position in $positions {
+      $y_or_x: if($position == top or $position == bottom, y, x);
+      $prefix: if(
+        $position == top,
+        t,
+        if($position == right, r, if($position == bottom, b, l))
+      );
+      .u-m#{$prefix}-#{$key},
+      .u-m#{$y_or_x}-#{$key},
+      .u-mg-#{$key} {
+        margin-#{$position}: var(--s-#{$key});
+      }
+      @if $key == auto {
+        .u-m#{$prefix}-#{$key},
+        .u-m#{$y_or_x}-#{$key},
+        .u-mg-#{$key} {
+          margin-#{$position}: var(--s-#{$key});
+        }
+      }
+    }
+  }
+
+  @each $key, $name in setting.$spaceScale {
+    @each $position in $positions {
+      $y_or_x: if($position == top or $position == bottom, y, x);
+      $prefix: if(
+        $position == top,
+        t,
+        if($position == right, r, if($position == bottom, b, l))
+      );
+      .u-p#{$prefix}-#{$key},
+      .u-p#{$y_or_x}-#{$key},
+      .u-pd-#{$key} {
+        padding-#{$position}: var(--s-#{$key});
+      }
+    }
+  }
+
+  .u-pr-clamp,
+  .u-px-clamp {
+    padding-right: var(--s-clamp);
+  }
+
+  .u-pl-clamp,
+  .u-px-clamp {
+    padding-left: var(--s-clamp);
+  }
+
+  @each $key, $name in setting.$spaceScale {
+    .u-space-#{$key} {
+      --custom-space: var(--s-#{$key});
+    }
+  }
+
+  .u-space-clamp {
+    --custom-space: var(--s-clamp);
+  }
+
+  .u-space-none {
+    --custom-space: 0px;
+  }
+
+  @each $prefix, $target in $targets {
+    .u-ins-#{$prefix} {
+      --#{$target}: var(--custom-space);
+    }
+  }
+
+  .u-mw-r {
+    max-width: setting.$readableLength;
+
+    html:lang(en) & {
+      max-width: setting.$readableLengthEn;
+    }
+  }
+
+  .u-mw-cnt {
+    max-width: max-content;
+  }
+
+  .u-w-max {
+    width: 100%;
+  }
+
+  .u-h-max {
+    height: 100%;
+  }
+}

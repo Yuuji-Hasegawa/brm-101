@@ -1,0 +1,160 @@
+@use '../settings' as setting;
+@use '../tools/' as tool;
+@use 'sass:map';
+
+@layer layout {
+  .c-h1,
+  .c-h2,
+  .c-h3,
+  .c-h4,
+  .c-h5,
+  .c-h6,
+  .c-h-2xl,
+  .c-h-xl,
+  .c-h1-ext,
+  .c-h2-ext,
+  .c-h3-ext,
+  .c-h4-ext,
+  .c-h5-ext,
+  .c-prg-l,
+  .c-prg-m,
+  .c-lbl-l,
+  .c-lbl-m,
+  .c-entry p {
+    letter-spacing: map.get(setting.$letterSpacing, m);
+  }
+
+  .c-h-2xl,
+  .c-h-xl,
+  .c-h1,
+  .c-h1-ext {
+    @include tool.min-screen(setting.$breaks) {
+      line-height: map.get(setting.$lineHeight, s);
+    }
+  }
+
+  .c-h-2xl {
+    font-size: clamp(
+      setting.f-font-size(5xl),
+      (map.get(setting.$breakpoints, overs)),
+      setting.f-font-size(6xl)
+    );
+  }
+
+  .c-h-xl {
+    font-size: clamp(
+      setting.f-font-size(4xl),
+      (map.get(setting.$breakpoints, overs)),
+      setting.f-font-size(5xl)
+    );
+  }
+
+  .c-h1,
+  .c-h1-ext {
+    font-size: clamp(
+      setting.f-font-size(3xl),
+      (map.get(setting.$breakpoints, overs)),
+      setting.f-font-size(4xl)
+    );
+  }
+
+  .c-h2,
+  .c-h2-ext,
+  .c-entry h2 {
+    font-size: clamp(
+      setting.f-font-size(2xl),
+      (map.get(setting.$breakpoints, overs)),
+      setting.f-font-size(3xl)
+    );
+  }
+
+  .c-h3,
+  .c-h3-ext,
+  .c-entry h3 {
+    font-size: clamp(
+      setting.f-font-size(xl),
+      (map.get(setting.$breakpoints, overs)),
+      setting.f-font-size(2xl)
+    );
+  }
+
+  .c-h4,
+  .c-h4-ext {
+    font-size: clamp(
+      setting.f-font-size(l),
+      (map.get(setting.$breakpoints, overs)),
+      setting.f-font-size(xl)
+    );
+  }
+
+  .c-h5,
+  .c-h5-ext {
+    font-size: clamp(
+      setting.f-font-size(m),
+      (map.get(setting.$breakpoints, overs)),
+      setting.f-font-size(l)
+    );
+    @include tool.max-screen(setting.$breaks - 1px) {
+      line-height: map.get(setting.$lineHeight, l);
+    }
+  }
+
+  .c-prg-l,
+  .c-prg-m,
+  .c-sml-l,
+  .c-sml-m,
+  .c-entry p {
+    line-height: map.get(setting.$lineHeight, l);
+  }
+
+  .c-prg-m,
+  .c-lbl-l {
+    font-size: setting.f-font-size(s);
+  }
+
+  .c-lbl-m,
+  .c-sml-l {
+    font-size: setting.f-font-size(xs);
+  }
+
+  .c-sml-l,
+  .c-sml-m {
+    letter-spacing: map.get(setting.$letterSpacing, s);
+  }
+
+  .c-sml-m {
+    font-size: setting.f-font-size(2xs);
+  }
+
+  .c-h1,
+  .c-h2,
+  .c-entry h2 {
+    margin-top: setting.f-get-space(2xl, rem);
+  }
+
+  .c-h3,
+  .c-h4,
+  .c-h5,
+  .c-entry h3 {
+    margin-top: setting.f-get-space(xl, rem);
+  }
+
+  .c-h6 {
+    margin-top: setting.f-get-space(l, rem);
+  }
+
+  .c-h1 + *,
+  .c-h2 + *,
+  .c-h3 + *,
+  .c-entry h2 + *,
+  .c-entry h3 + * {
+    margin-top: setting.f-get-space(l, rem);
+  }
+
+  .c-h4 + *,
+  .c-h5 + *,
+  .c-h6 + *,
+  .c-entry p + * {
+    margin-top: setting.f-get-space(m, rem);
+  }
+}

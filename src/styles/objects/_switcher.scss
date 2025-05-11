@@ -1,0 +1,15 @@
+@use '../settings' as setting;
+
+@layer layout {
+  .o-swt {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--swt-gtt, setting.f-get-space(l));
+
+    & > * {
+      flex-grow: 1;
+      flex-basis: calc((setting.$breakm - 100%) * 999);
+      max-width: 100%;
+    }
+  }
+}

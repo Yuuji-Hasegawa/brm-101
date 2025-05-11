@@ -1,0 +1,48 @@
+import { Meta, ColorPalette, ColorItem } from '@storybook/blocks';
+import { colors } from './Primitives.js';
+
+<Meta title="Tokens/Color/Primitives" />
+
+# Primitives
+
+<ColorPalette>
+  {Object.keys(colors).map((key) => (
+    <ColorItem
+      key={key}
+      title={key}
+      colors={{ ...colors[key] }}
+    />
+  ))}
+</ColorPalette>
+
+# プリミティブカラーの定義
+
+`.env`ファイル内で以下のように定義しています。
+
+```
+COLOR_MY_BRAND="#2c6c60"
+COLOR_ACCENT="#c82e2e"
+COLOR_ACCENT_ALT="#ff5a5a"
+
+COLOR_REF_BLUE="#007aff"
+COLOR_REF_INDIGO="#5856d6"
+COLOR_REF_PURPLE="#af52de"
+COLOR_REF_PINK="#ff2d55"
+COLOR_REF_RED="#ff3b30"
+COLOR_REF_ORANGE="#ff9500"
+COLOR_REF_YELLOW="#ffcc00"
+COLOR_REF_GREEN="#28cd41"
+COLOR_REF_TEAL="#59adc4"
+COLOR_REF_CYAN="#55bef0"
+```
+
+これらの定義を元に、HCTカラー空間に基づいたカラーを自動生成しています。
+
+- `npm-scripts/palette_gen.js`:`src/styles/settings/_palette.scss`に、カラーパレットを生成。<br />**Material Design 3**に基づくPrimaryやSecondaryは、`COLOR_MY_BRAND`をもとに生成
+- `npm-scripts/altcolor_gen.js`:light/dark モード用の**tint/shade**を`src/styles/settings/_altcolors.scss`に生成
+
+# 実行コマンド
+
+- `bun run color`:全てのカラーを同時生成
+- `bun run color:palette`:`palette_gen.js`を単体で実行
+- `bun run color:altcolor`:`altcolor_gen.js`を単体で実行

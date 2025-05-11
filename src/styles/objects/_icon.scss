@@ -1,0 +1,14 @@
+@use '../settings' as setting;
+@use 'sass:map';
+
+@layer layout {
+  .o-icn {
+    font-size: setting.f-font-size(2xs, em);
+    line-height: map.get(setting.$lineHeight, none);
+
+		@supports (font-size: 1cap) {
+			font-size: 1cap;
+		}
+
+  }
+}

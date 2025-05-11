@@ -1,0 +1,62 @@
+@use '../settings' as setting;
+@use 'sass:map';
+
+@layer layout {
+  .c-logo {
+  }
+}
+
+@layer theme {
+  .c-logo {
+    &--hd {
+      font-size: clamp(
+        setting.f-font-size(2xl),
+        (map.get(setting.$breakpoints, overs)),
+        setting.f-font-size(5xl)
+      );
+    }
+
+    &--menu {
+      font-size: calc(var(--f-5xl) + var(--f-4xl));
+    }
+  }
+
+  .c-logo-fll {
+    fill: var(--c-accent-middle);
+
+    .c-logo:hover & {
+      fill: var(--c-accent-hover);
+    }
+
+    .c-logo:focus &,
+    .c-logo:active & {
+      fill: var(--c-accent-engage);
+    }
+  }
+
+  .c-logo-drw {
+    fill: var(--c-brand-middle);
+
+    .c-logo:hover & {
+      fill: var(--c-link-hover);
+    }
+
+    .c-logo:focus &,
+    .c-logo:active & {
+      fill: var(--c-link-engage);
+    }
+  }
+
+  .c-logo-ltr {
+    fill: var(--c-accent-middle);
+
+    .c-logo:hover & {
+      fill: var(--c-accent-hover);
+    }
+
+    .c-logo:focus &,
+    .c-logo:active & {
+      fill: var(--c-accent-engage);
+    }
+  }
+}

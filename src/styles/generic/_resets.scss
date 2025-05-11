@@ -1,0 +1,165 @@
+@use '../settings' as setting;
+@use '../tools' as tool;
+@use 'sass:map';
+
+@layer default, layout, theme, utilities;
+
+@layer default {
+  *:where(:not(iframe, canvas, img, svg, video, svg *)) {
+    all: unset;
+    display: revert;
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    overflow-wrap: break-word;
+  }
+
+  :root {
+    @each $key, $name in setting.$spaceScale {
+      $is_target: if($key != auto, true, false);
+      @if $is_target {
+        & {
+          --s-#{$key}: #{setting.f-get-space($key)};
+        }
+      } @else if $key == auto {
+        & {
+          --s-#{$key}: #{$key};
+        }
+      }
+    }
+
+    & {
+      --s-clamp: clamp(
+        clamp(
+          #{setting.f-get-space(m)},
+          #{map.get(setting.$breakpoints, overm)},
+          #{setting.f-get-space(xl)}
+        ),
+        #{map.get(setting.$breakpoints, overs)},
+        clamp(
+          #{setting.f-get-space(xl)},
+          #{map.get(setting.$breakpoints, overm)},
+          #{setting.f-get-space(3xl)}
+        )
+      );
+      --s-reading: #{setting.$readableLength};
+    }
+
+    @each $key, $name in setting.$fontScale {
+      & {
+        --f-#{$key}: #{setting.f-font-size($key)};
+      }
+    }
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    min-height: 100svh;
+    font-family: setting.$font-family;
+    font-size: var(--f-m, 1rem);
+    font-weight: map.get(setting.$fontWeight, r);
+    font-feature-settings: 'palt';
+    font-optical-sizing: auto;
+    line-height: map.get(setting.$lineHeight, m);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-size-adjust: 100%;
+    text-rendering: optimizelegibility;
+  }
+
+  b,
+  strong {
+    font-weight: map.get(setting.$fontWeight, b);
+  }
+
+  small {
+    font-size: setting.f-font-size(xs);
+  }
+
+  a,
+  button {
+    cursor: pointer;
+    transition: var(--trn, all) var(--drt, 0.3s) var(--tmn, ease-in-out)
+      var(--dly, 0s);
+
+    & * {
+      transition: inherit;
+    }
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+    vertical-align: top;
+  }
+
+  svg {
+    width: auto;
+    height: 1em;
+  }
+
+  ol,
+  ul,
+  details > summary {
+    list-style: none;
+  }
+
+  details summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+}
+
+@layer theme {
+  :root {
+    @each $key, $name in setting.$semantic-light {
+      --c-#{$key}: #{($name)};
+    }
+
+    @each $key, $values in setting.$shadows {
+      $value-string: '';
+      @each $value in $values {
+        $value-string: if(
+          $value-string == '',
+          #{$value},
+          $value-string + ', ' + #{$value}
+        );
+      }
+
+      --c-shadow-#{$key}: #{$value-string};
+    }
+
+    --c-scrim-adujust: #{rgba(
+        map.get(setting.$sys-light, scrim),
+        setting.$scrim-ratio
+      )};
+
+    @include tool.darkmode {
+      @each $key, $name in setting.$semantic-dark {
+        --c-#{$key}: #{($name)};
+      }
+    }
+  }
+
+  body {
+    color: var(--c-txt, #333);
+    background: var(--c-bg, #fff);
+  }
+}

@@ -1,0 +1,9 @@
+@use '../settings' as setting;
+
+@layer layout {
+  .o-cls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--cls-gtt, setting.f-get-space(m));
+  }
+}

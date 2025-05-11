@@ -1,0 +1,313 @@
+@use '../settings' as setting;
+@use '../tools' as tool;
+@use 'sass:map';
+
+@layer layout {
+  .c-frm-txt {
+    resize: none;
+  }
+
+  .c-frm-txt,
+  .c-frm-chk,
+  .c-frm-rdo {
+    outline-style: solid;
+    outline-offset: 2px;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .c-frm-txt,
+  .c-frm-chk {
+    border-radius: map.get(setting.$borderRadius, s);
+  }
+
+  .c-frm-chk,
+  .c-frm-rdo {
+    position: relative;
+    width: setting.f-font-size(l, em);
+    height: setting.f-font-size(l, em);
+
+    &:checked {
+      &::after {
+        position: absolute;
+        content: '';
+        transition: all 0.3s ease-in-out;
+      }
+    }
+  }
+
+  .c-frm-chk {
+    &:checked {
+      &::after {
+        top: calc(50% - 2px);
+        left: 50%;
+        width: setting.f-font-size(2xs, em);
+        height: calc(setting.f-font-size(2xs, em) / 2);
+        border-style: solid;
+        border-width: 0 0 2px 2px;
+        transform: translate(-50%, -50%) rotate(-45deg);
+      }
+    }
+  }
+
+  .c-frm-rdo {
+    border-radius: 50%;
+
+    &:checked {
+      &::after {
+        top: 50%;
+        left: 50%;
+        width: setting.f-get-space(xs, em);
+        height: setting.f-get-space(xs, em);
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+      }
+    }
+  }
+
+  .c-frm-tip {
+    position: absolute;
+    top: calc(100% + setting.f-get-space(3xs));
+    right: 0;
+  }
+
+  .c-frm-ttl {
+    &[data-placeholder]::before {
+      position: absolute;
+      top: calc(100% + setting.f-get-space(m));
+      left: setting.f-get-space(s);
+      content: attr(data-placeholder);
+      border-radius: map.get(setting.$borderRadius, s);
+      transition: all 0.3s ease-in-out 0s;
+
+      .c-frm-grp:focus-within &,
+      .c-frm-grp:has(.c-frm-txt:not(:placeholder-shown)) & {
+        z-index: 2;
+        padding-right: setting.f-get-space(xs);
+        padding-left: setting.f-get-space(xs);
+        line-height: map.get(setting.$lineHeight, m);
+        transform: translate(-8px, -20px) scale(0.8);
+      }
+    }
+
+    .c-frm-grp:has([aria-required='true']) & {
+      &::after {
+        display: inline-block;
+        padding: 0 setting.f-get-space(xs);
+        margin: setting.f-get-space(s) 0 setting.f-get-space(s)
+          setting.f-get-space(s);
+        font-size: setting.f-font-size(xs);
+        letter-spacing: map.get(setting.$letterSpacing, s);
+        content: '必須';
+      }
+    }
+  }
+
+  .c-frm-msg {
+    height: 0;
+    padding: 0 setting.f-get-space(s);
+    visibility: hidden;
+    border-width: 0;
+    opacity: 0;
+    transition: all 0.3s ease-in-out;
+
+    &[aria-hidden='false'] {
+      height: auto;
+      padding-top: setting.f-get-space(s);
+      padding-bottom: setting.f-get-space(s);
+      margin-top: setting.f-get-space(l);
+      visibility: visible;
+      border-width: 1px;
+      opacity: 1;
+    }
+  }
+}
+
+@layer theme {
+  .c-frm-txt,
+  .c-frm-chk,
+  .c-frm-rdo {
+    background-color: var(--c-bg-behind);
+    border-color: var(--c-brd-ghost);
+
+    &:hover {
+      background-color: color-mix(
+        in oklab,
+        var(--c-bg-behind),
+        var(--c-state-hover-txt)
+      );
+      border-color: color-mix(
+        in oklab,
+        var(--c-brd-ghost),
+        var(--c-state-hover-txt)
+      );
+    }
+
+    &:focus {
+      background-color: color-mix(
+        in oklab,
+        var(--c-bg-behind),
+        var(--c-state-engage-txt)
+      );
+      border-color: color-mix(
+        in oklab,
+        var(--c-brd-ghost),
+        var(--c-state-engage-txt)
+      );
+    }
+  }
+
+  .c-frm-txt {
+    color: var(--c-txt);
+    @include tool.placeholder(transparent);
+
+    &:focus {
+      outline-color: color-mix(
+        in oklab,
+        var(--c-fill),
+        var(--c-state-engage-fill)
+      );
+
+      &:valid {
+        outline-color: color-mix(
+          in oklab,
+          var(--c-status-info),
+          var(--c-state-engage-info)
+        );
+      }
+
+      &:invalid {
+        outline-color: color-mix(
+          in oklab,
+          var(--c-status-warning),
+          var(--c-state-engage-warning)
+        );
+      }
+    }
+
+    &:not(:placeholder-shown):valid {
+      color: var(--c-status-success);
+      border-color: var(--c-status-success);
+    }
+
+    &:not(:placeholder-shown):invalid {
+      color: var(--c-status-error);
+      border-color: var(--c-status-error);
+    }
+  }
+
+  .c-frm-chk {
+    &:focus {
+      outline-color: color-mix(
+        in oklab,
+        var(--c-fill),
+        var(--c-state-engage-fill)
+      );
+    }
+
+    &:checked {
+      background: var(--c-fill);
+
+      &::after {
+        border-color: var(--c-txt-on-fill);
+      }
+
+      &:hover {
+        background: color-mix(
+          in oklab,
+          var(--c-fill),
+          var(--c-state-hover-txt-on-fill)
+        );
+      }
+
+      &:focus {
+        background: color-mix(
+          in oklab,
+          var(--c-fill),
+          var(--c-state-engage-txt-on-fill)
+        );
+      }
+    }
+  }
+
+  .c-frm-rdo {
+    &:focus {
+      outline-color: color-mix(
+        in oklab,
+        var(--c-fill),
+        var(--c-state-engage-fill)
+      );
+    }
+
+    &:checked {
+      background: var(--c-fill);
+
+      &::after {
+        background-color: var(--c-txt-on-fill);
+      }
+
+      &:hover {
+        background: color-mix(
+          in oklab,
+          var(--c-fill),
+          var(--c-state-hover-txt-on-fill)
+        );
+      }
+
+      &:focus {
+        background: color-mix(
+          in oklab,
+          var(--c-fill),
+          var(--c-state-engage-txt-on-fill)
+        );
+      }
+    }
+  }
+
+  .c-frm-tip {
+    color: var(--c-status-error);
+  }
+
+  .c-frm-ttl {
+    &[data-placeholder]::before {
+      color: var(--c-placeholder);
+      background: transparent;
+
+      .c-frm-grp:focus-within &,
+      .c-frm-grp:has(.c-frm-txt:not(:placeholder-shown)) & {
+        color: var(--c-txt);
+        background: var(--c-bg);
+      }
+
+      .c-frm-grp:has(.c-frm-txt:valid):focus-within &,
+      .c-frm-grp:has(.c-frm-txt:not(:placeholder-shown):valid) & {
+        color: var(--c-status-success);
+      }
+
+      .c-frm-grp:has(.c-frm-txt:invalid):focus-within &,
+      .c-frm-grp:has(.c-frm-txt:not(:placeholder-shown):invalid) & {
+        color: var(--c-status-error);
+      }
+    }
+
+    .c-frm-grp:has([aria-required='true']) & {
+      &::after {
+        color: var(--c-txt-on-error);
+        background: var(--c-status-error);
+      }
+    }
+  }
+
+  .c-frm-msg {
+    color: var(--c-txt);
+    background: var(--c-bg);
+    border-color: var(--c-brd-ghost);
+
+    &.is-success {
+      border-color: var(--c-status-success);
+    }
+
+    &.is-error {
+      border-color: var(--c-status-error);
+    }
+  }
+}

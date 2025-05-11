@@ -1,0 +1,59 @@
+@use '../settings' as setting;
+@use 'sass:map';
+
+@layer layout {
+  .c-row,
+  .c-mda {
+    &__nr,
+    &__img {
+      flex-grow: 1;
+      flex-basis: var(--row-narrow, 35%);
+    }
+
+    &__wd,
+    &__txt {
+      flex-grow: 999;
+      flex-basis: 0;
+      min-width: min(map.get(setting.$breakpoints, underm), 100%);
+    }
+  }
+	.c-row__str {
+		flex-grow: 1;
+    flex-basis: map.get(setting.$breakpoints, unders);
+	}
+}
+
+@layer theme {
+  .c-mda {
+    color: var(--c-txt);
+    background: var(--c-bg);
+
+    &--link {
+      transition: all 0.3s ease-in-out;
+
+      /*
+			outline-offset: 2px;
+			outline-style: solid;
+			outline-color: transparent;
+			*/
+
+      &:hover {
+        background: color-mix(in oklab, var(--c-bg), var(--c-state-hover-txt));
+      }
+
+      &:focus,
+      &:active {
+        background: color-mix(in oklab, var(--c-bg), var(--c-state-engage-txt));
+      }
+
+      /*
+			&:focus {
+				outline-color: color-mix(in oklab, var(--c-fill), var(--c-state-engage-fill));
+			}
+			*/
+    }
+  }
+
+  .c-row {
+  }
+}

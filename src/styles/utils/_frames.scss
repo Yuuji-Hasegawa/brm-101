@@ -1,0 +1,68 @@
+@use '../settings' as setting;
+@use '../tools' as tool;
+@use 'sass:map';
+@use 'sass:list';
+
+@layer utilities {
+  $frm-targets: (s, m, l, ppr, brz);
+  @each $key, $name in setting.$aspect {
+    $is_target: if($key != l, true, false);
+    @if $is_target {
+      .u-asp-#{$key} {
+        --frm-asp: #{($name)};
+      }
+    }
+  }
+
+  @each $key, $value in setting.$aspect {
+    @if list.index($frm-targets, $key) {
+      .u-asp-rt-#{$key} {
+        --frm-asp: #{map.get(setting.$aspect, $key)};
+
+        @include tool.portrait {
+          --frm-asp: #{map.get(setting.$aspect, 'y#{$key}')};
+        }
+      }
+    }
+  }
+
+  @each $key, $value in setting.$aspect {
+    @if list.index($frm-targets, $key) {
+      .u-asp-rv-#{$key} {
+        --frm-asp: #{map.get(setting.$aspect, 'y#{$key}')};
+        @include tool.portrait {
+          --frm-asp: #{map.get(setting.$aspect, $key)};
+        }
+      }
+    }
+  }
+
+  .u-flt-gry {
+    > * {
+      filter: grayscale(100%);
+    }
+  }
+
+  @each $key, $name in setting.$borderRadius {
+    .u-brd-r-#{$key} {
+      border-radius: #{map.get(setting.$borderRadius, $key)};
+    }
+    .u-brd-r-t#{$key} {
+      border-radius: #{map.get(setting.$borderRadius, $key)}
+        #{map.get(setting.$borderRadius, $key)}
+        0
+        0;
+    }
+    .u-brd-r-b#{$key} {
+      border-radius: 0
+        0
+        #{map.get(setting.$borderRadius, $key)}
+        #{map.get(setting.$borderRadius, $key)};
+    }
+    .u-frm-r-#{$key} {
+      & > * {
+        --frm-r: #{map.get(setting.$borderRadius, $key)};
+      }
+    }
+  }
+}
