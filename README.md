@@ -1,7 +1,7 @@
 # BRM-101
 
-[Skeleton Kit](https://github.com/Yuuji-Hasegawa/skeleton-kit) をベースに拡張した **WordPressサイト用スターターキ
-ット**。
+[Skeleton Kit](https://github.com/Yuuji-Hasegawa/skeleton-kit) をベースに拡張した **WordPressサイト用スターターキット**。
+
 [bx-00](https://github.com/Yuuji-Hasegawa/wp-bx-00) を元に [Skeleton Kit](https://github.com/Yuuji-Hasegawa/skeleton-kit) に統合・再設計された正式採用モデル
 
 ---
@@ -52,7 +52,7 @@ cd your-repo-name
 - WordPress用ローカルサーバー (XAMPP / MAMP など)
 - wp-cli
 
-*** `bun` のインストール方法**:
+**`bun` のインストール方法**:
 
 ```bash
 curl -fsSL https://bun.sh/install | bash
