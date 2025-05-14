@@ -203,8 +203,8 @@ function add_head()
     $inserts .= '<link rel="icon" href="' . get_template_directory_uri() . '/favicon.ico" />';
     $inserts .= '<link rel="icon" type="image/svg+xml" href="' . get_template_directory_uri() . '/img/favicon.svg">';
     $inserts .= '<link rel="apple-touch-icon" sizes="180×180" href="' .  get_template_directory_uri() . '/pwa/icons/icon-180x180.png" />';
-    $inserts .= '<meta name="theme-color" content="' . get_vars('themeColor.light') . ' media="(prefers-color-scheme: light)" />';
-    $inserts .= '<meta name="theme-color" content="' . get_vars('themeColor.dark') . ' media="(prefers-color-scheme: dark)" />';
+    $inserts .= '<meta name="theme-color" content="' . get_vars('themeColor.light') . '" media="(prefers-color-scheme: light)" />';
+    $inserts .= '<meta name="theme-color" content="' . get_vars('themeColor.dark') . '" media="(prefers-color-scheme: dark)" />';
     $inserts .= '<link rel="manifest" href="' . get_template_directory_uri() . '/pwa/manifest.json" />';
     $inserts .= '<meta name="apple-mobile-web-app-title" content="' . get_vars('site.name') . '">';
     $inserts .= '<meta name="apple-mobile-web-app-capable" content="yes">';
