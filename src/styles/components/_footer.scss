@@ -4,3 +4,9 @@
     top: 100svh;
   }
 }
+@layer theme {
+	.c-cta {
+		background: var(--c-bg-primary);
+		color: var(--c-txt-on-bg-primary);
+	}
+}

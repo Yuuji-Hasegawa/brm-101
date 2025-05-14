@@ -185,6 +185,39 @@ $shadows: (
   ),
 ) !default;
 
+$shadows-noSpread: (
+  none: (
+    rgba(map.get($sys-light, shadow), 0.2) 0px 0px 0px,
+    rgba(map.get($sys-light, shadow), 0.14) 0px 0px 0px,
+    rgba(map.get($sys-light, shadow), 0.12) 0px 0px 0px,
+  ),
+  layer: (
+    rgba(map.get($sys-light, shadow), 0.2) 0px 2px 2px,
+    rgba(map.get($sys-light, shadow), 0.14) 0px 1px 1px,
+    rgba(map.get($sys-light, shadow), 0.12) 0px 1px 3px,
+  ),
+  elevate: (
+    rgba(map.get($sys-light, shadow), 0.2) 0px 3px 6px,
+    rgba(map.get($sys-light, shadow), 0.14) 0px 3px 4px,
+    rgba(map.get($sys-light, shadow), 0.12) 0px 1px 8px,
+  ),
+  float: (
+    rgba(map.get($sys-light, shadow), 0.2) 0px 3px 6px,
+    rgba(map.get($sys-light, shadow), 0.14) 0px 6px 10px,
+    rgba(map.get($sys-light, shadow), 0.12) 0px 1px 18px,
+  ),
+  moved: (
+    rgba(map.get($sys-light, shadow), 0.2) 0px 5px 9px,
+    rgba(map.get($sys-light, shadow), 0.14) 0px 8px 9px,
+    rgba(map.get($sys-light, shadow), 0.12) 0px 3px 11px,
+  ),
+  emphasis: (
+    rgba(map.get($sys-light, shadow), 0.2) 0px 7px 14px,
+    rgba(map.get($sys-light, shadow), 0.14) 0px 12px 14px,
+    rgba(map.get($sys-light, shadow), 0.12) 0px 5px 16px,
+  ),
+) !default;
+
 $semantic-light: (
   txt: map.get($sys-light, onSurface),
   txt-desc: map.get($sys-light, onSurfaceVar),
@@ -226,13 +259,29 @@ $semantic-light: (
   link: map.get($sys-light, primary),
   link-visited: map.get($sys-light, outlineVariant),
   link-hover: color.mix(
-      map.get($sys-light, primary),
-      state-color(map.get($sys-light, primary), hover)
-    ),
+    map.get($sys-light, primary),
+    state-color(map.get($sys-light, primary), hover)
+  ),
   link-engage: color.mix(
-      map.get($sys-light, primary),
-      state-color(map.get($sys-light, primary), engage)
-    ),
+    map.get($sys-light, primary),
+    state-color(map.get($sys-light, primary), engage)
+  ),
+	hd-link-hover: color.mix(
+    map.get($sys-light, onSurface),
+    state-color(map.get($sys-light, onSurface), hover)
+  ),
+	hd-link-engage: color.mix(
+    map.get($sys-light, onSurface),
+    state-color(map.get($sys-light, onSurface), engage)
+  ),
+	cta-link-hover: color.mix(
+    map.get($sys-light, onPrimaryContainer),
+    state-color(map.get($sys-light, onPrimaryContainer), hover)
+  ),
+	cta-link-engage: color.mix(
+    map.get($sys-light, onPrimaryContainer),
+    state-color(map.get($sys-light, onPrimaryContainer), engage)
+  ),
   status-error: map.get($sys-light, error),
   status-error-bg: map.get($sys-light, errorContainer),
   status-success: map.get($sys-light, success),
@@ -244,17 +293,6 @@ $semantic-light: (
   brand-tint: map.get(alt-colors.$myBrand, lightTint),
   brand-middle: map.get(alt-colors.$myBrand, lightMiddle),
   brand-shade: map.get(alt-colors.$myBrand, lightShade),
-  accent-tint: map.get(alt-colors.$accent, lightTint),
-  accent-middle: map.get(alt-colors.$accent, lightMiddle),
-  accent-shade: map.get(alt-colors.$accent, lightShade),
-  accent-hover: color.mix(
-      map.get(alt-colors.$accent, lightMiddle),
-      state-color(map.get(alt-colors.$accent, lightMiddle), hover)
-    ),
-  accent-engage: color.mix(
-      map.get(alt-colors.$accent, lightMiddle),
-      state-color(map.get(alt-colors.$accent, lightMiddle), engage)
-    ),
   state-hover-txt: state-color(map.get($sys-light, onSurface), hover),
   state-engage-txt: state-color(map.get($sys-light, onSurface), engage),
   state-drag-txt: state-color(map.get($sys-light, onSurface), drag),
@@ -449,12 +487,7 @@ $semantic-light: (
   state-drag-warning: state-color(map.get($sys-light, warning), drag),
   state-hover-info: state-color(map.get($sys-light, info), hover),
   state-engage-info: state-color(map.get($sys-light, info), engage),
-  state-drag-info: state-color(map.get($sys-light, info), drag)
-    /*
-	accent-alt-tint: map.get(alt-colors.$accentAlt, lightTint),
-	accent-alt-middle: map.get(alt-colors.$accentAlt, lightMiddle),
-	accent-alt-shade: map.get(alt-colors.$accentAlt, lightShade),
-	*/,
+  state-drag-info: state-color(map.get($sys-light, info), drag),
 ) !default;
 
 $semantic-dark: (
@@ -498,13 +531,29 @@ $semantic-dark: (
   link: map.get($sys-dark, primary),
   link-visited: map.get($sys-dark, outlineVariant),
   link-hover: color.mix(
-      map.get($sys-dark, primary),
-      state-color(map.get($sys-dark, primary), hover)
-    ),
+    map.get($sys-dark, primary),
+    state-color(map.get($sys-dark, primary), hover)
+  ),
   link-engage: color.mix(
-      map.get($sys-dark, primary),
-      state-color(map.get($sys-dark, primary), engage)
-    ),
+    map.get($sys-dark, primary),
+    state-color(map.get($sys-dark, primary), engage)
+  ),
+	hd-link-hover: color.mix(
+    map.get($sys-dark, onSurface),
+    state-color(map.get($sys-dark, onSurface), hover)
+  ),
+	hd-link-engage: color.mix(
+    map.get($sys-dark, onSurface),
+    state-color(map.get($sys-dark, onSurface), engage)
+  ),
+	cta-link-hover: color.mix(
+    map.get($sys-dark, onPrimaryContainer),
+    state-color(map.get($sys-dark, onPrimaryContainer), hover)
+  ),
+	cta-link-engage: color.mix(
+    map.get($sys-dark, onPrimaryContainer),
+    state-color(map.get($sys-dark, onPrimaryContainer), engage)
+  ),
   status-error-bg: map.get($sys-dark, errorContainer),
   status-success: map.get($sys-dark, success),
   status-success-bg: map.get($sys-dark, successContainer),
@@ -515,17 +564,6 @@ $semantic-dark: (
   brand-tint: map.get(alt-colors.$myBrand, darkTint),
   brand-middle: map.get(alt-colors.$myBrand, darkMiddle),
   brand-shade: map.get(alt-colors.$myBrand, darkShade),
-  accent-tint: map.get(alt-colors.$accentAlt, lightTint),
-  accent-middle: map.get(alt-colors.$accentAlt, lightMiddle),
-  accent-shade: map.get(alt-colors.$accentAlt, lightShade),
-  accent-hover: color.mix(
-      map.get(alt-colors.$accentAlt, lightMiddle),
-      state-color(map.get(alt-colors.$accentAlt, lightMiddle), hover)
-    ),
-  accent-engage: color.mix(
-      map.get(alt-colors.$accentAlt, lightMiddle),
-      state-color(map.get(alt-colors.$accentAlt, lightMiddle), engage)
-    ),
   state-hover-txt: state-color(map.get($sys-dark, onSurface), hover),
   state-engage-txt: state-color(map.get($sys-dark, onSurface), engage),
   state-drag-txt: state-color(map.get($sys-dark, onSurface), drag),
@@ -721,13 +759,5 @@ $semantic-dark: (
   state-hover-info: state-color(map.get($sys-dark, info), hover),
   state-engage-info: state-color(map.get($sys-dark, info), engage),
   state-drag-info: state-color(map.get($sys-dark, info), drag),
-  status-error: map.get($sys-dark, error)
-    /*
-	accent-tint: map.get(alt-colors.$accent, darkTint),
-	accent-middle: map.get(alt-colors.$accent, darkMiddle),
-	accent-shade: map.get(alt-colors.$accent, darkShade),
-	accent-alt-tint: map.get(alt-colors.$accentAlt, darkTint),
-	accent-alt-middle: map.get(alt-colors.$accentAlt, darkMiddle),
-	accent-alt-shade: map.get(alt-colors.$accentAlt, darkShade),
-	*/,
+  status-error: map.get($sys-dark, error),
 ) !default;

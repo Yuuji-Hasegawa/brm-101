@@ -296,21 +296,5 @@ export const colors = {
 		darkTint: '#78b7a9',
 		darkMiddle: '#6aa99b',
 		darkShade: '#508f82',
-	},
-	accent: {
-		lightTint: '#e54440',
-		lightMiddle: '#c82e2e',
-		lightShade: '#b01b20',
-		darkTint: '#ff9288',
-		darkMiddle: '#ff7b71',
-		darkShade: '#de6259',
-	},
-	accentAlt: {
-		lightTint: '#ff7a76',
-		lightMiddle: '#ff5a5a',
-		lightShade: '#df4345',
-		darkTint: '#ffb4b0',
-		darkMiddle: '#ffa6a1',
-		darkShade: '#db8883',
 	}
 };

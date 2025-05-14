@@ -33,4 +33,40 @@
       text-decoration: none;
     }
   }
+
+	.c-hd-link {
+		color: var(--c-txt);
+		/*
+		&:visited {
+      color: var(--c-link-visited);
+    }
+		*/
+
+		&:hover {
+			color: var(--c-hd-link-hover);
+		}
+
+		&:focus,
+    &:active {
+      color: var(--c-hd-link-engage);
+    }
+	}
+
+	.c-cta-link {
+		color: inherit;
+		/*
+		&:visited {
+      color: var(--c-link-visited);
+    }
+		*/
+
+		&:hover {
+			color: var(--c-cta-link-hover);
+		}
+
+		&:focus,
+    &:active {
+      color: var(--c-cta-link-engage);
+    }
+	}
 }

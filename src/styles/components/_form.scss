@@ -78,6 +78,8 @@
       content: attr(data-placeholder);
       border-radius: map.get(setting.$borderRadius, s);
       transition: all 0.3s ease-in-out 0s;
+			min-width: max-content;
+			pointer-events: none;
 
       .c-frm-grp:focus-within &,
       .c-frm-grp:has(.c-frm-txt:not(:placeholder-shown)) & {
@@ -98,6 +100,7 @@
         font-size: setting.f-font-size(xs);
         letter-spacing: map.get(setting.$letterSpacing, s);
         content: '必須';
+				border-radius: map.get(setting.$borderRadius, s);
       }
     }
   }
@@ -263,10 +266,6 @@
     }
   }
 
-  .c-frm-tip {
-    color: var(--c-status-error);
-  }
-
   .c-frm-ttl {
     &[data-placeholder]::before {
       color: var(--c-placeholder);
@@ -275,7 +274,7 @@
       .c-frm-grp:focus-within &,
       .c-frm-grp:has(.c-frm-txt:not(:placeholder-shown)) & {
         color: var(--c-txt);
-        background: var(--c-bg);
+        background: var(--c-fill-neutral);
       }
 
       .c-frm-grp:has(.c-frm-txt:valid):focus-within &,
@@ -294,20 +293,6 @@
         color: var(--c-txt-on-error);
         background: var(--c-status-error);
       }
-    }
-  }
-
-  .c-frm-msg {
-    color: var(--c-txt);
-    background: var(--c-bg);
-    border-color: var(--c-brd-ghost);
-
-    &.is-success {
-      border-color: var(--c-status-success);
-    }
-
-    &.is-error {
-      border-color: var(--c-status-error);
     }
   }
 }

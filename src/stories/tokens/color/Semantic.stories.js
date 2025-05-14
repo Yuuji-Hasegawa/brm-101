@@ -8,7 +8,7 @@ export default {
 
 /**
  * **プリミティブカラー**から、**Material Design 3**に基づいた**セマンティックカラー**を定義しています。<br />
- * また、**Material Design 3 のトーンパレットに縛られたくない**というニーズにも対応するため、`brand-*`や`accent-*`など、独自にlight/darkモード対応のtint/shadeも準備しています。
+ * また、**Material Design 3 のトーンパレットに縛られたくない**というニーズにも対応するため、`brand-*`など、独自にlight/darkモード対応のtint/shadeも準備しています。
  *
  * 詳細は、`/src/styles/settings/_colors.scss`をご確認ください。
  * - なお、`prefers-color-scheme`に基づく**自動切り替え**を想定しています

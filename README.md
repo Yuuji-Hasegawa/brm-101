@@ -1,57 +1,99 @@
-# Skeleton Kit
+# BRM-101
 
-Bun + Viteによるボイラープレート。
-内容は[Storybook](https://yuuji-hasegawa.github.io/skeleton-kit/?path=/) でご確認いただけます。
+[Skeleton Kit](https://github.com/Yuuji-Hasegawa/skeleton-kit) をベースに拡張した **WordPressサイト用スターターキ
+ット**。
+[bx-00](https://github.com/Yuuji-Hasegawa/wp-bx-00) を元に [Skeleton Kit](https://github.com/Yuuji-Hasegawa/skeleton-kit) に統合・再設計された正式採用モデル
+
+---
+
+## 型番について
+
+**BRM-101** とは、
+**BLUE B NOSE Rigged Model - 1カラム・0系・1番艦** を表す型番。
+
+- **B**: BLUE B NOSE（ブランド名）
+- **RM**: Rigged Model（艤装済モデル）
+- **101**:
+	- `1`: 1カラム構成
+	- `0`: 0系（汎用系）
+	- `1`: 1番艦（ナンバリング）
+
+> 「off‐the‐shelf = すぐに使える」艤装済のWordPressテーマ
 
 ## 特徴
 - **Bun + Vite** による高速ビルド&amp;開発環境
 - **Dart Sass + カスタムプロパティ** による堅牢かつ柔軟な設計
 - **画像最適化** + **Avif / WebP** 自動生成
 - **Material Design 3** 準拠のカラーパレット自動生成
+- StorybookによるUIコンポーネントの管理
+- **`setting.json` + `page-*.php` による構成管理**
+	→ **管理画面を極力触らない** がコンセプト
 
 ## 使い方
 
 このリポジトリはテンプレートとして利用できます。以下の手順でご自身のプロジェクトに導入してください。
 
-1. [Use this template](https://github.com/Yuuji-Hasegawa/skeleton-kit/generate) ボタンをクリックして、新しいリポジトリを作成。
-2. 作成したリポジトリを clone します。
+1. テンプレートからリポジトリを作成
+
+-  [Use this template](https://github.com/Yuuji-Hasegawa/brm-101/generate) をクリックして、新しいリポジトリを作成。
+- 作成したリポジトリを clone。
 
 ```bash
 git clone https://github.com/your-username/your-repo-name.git
 cd your-repo-name
 ```
 
-3. 必要に応じて `bun` や `Node.js` をインストールし、依存をインストールします。
+2. 開発環境を用意
 
-```bash
-bun install
-```
+このプロジェクトでは以下の環境が必要です:
 
-- `Node.js` のインストール方法:
+- [bun](https://bun.sh)
+- Node.js
+- WordPress用ローカルサーバー (XAMPP / MAMP など)
+- wp-cli
 
-	- [公式サイト](https://nodejs.org/ja/download)
-	- [Windows 向け解説](https://miyashimo-studio.jp/blog/detail/179)
-	- [Mac 向け解説](https://zenn.dev/tn_a/articles/2487073812cb12)
-
-- `bun` のインストール方法:
+*** `bun` のインストール方法**:
 
 ```bash
 curl -fsSL https://bun.sh/install | bash
 ```
 
-[公式サイト](https://bun.sh)
+その他のインストール方法
 
-4. 開発サーバーを起動して、動作を確認する場合:
+- [Node.js公式サイト](https://nodejs.org/ja/download)
+- [XAMPP公式サイト](https://www.apachefriends.org/jp/index.html)
+- [MAMP公式サイト](http://www.mamp.info/en/)
+- [wp-cli公式サイト](https://wp-cli.org/ja/)
+
+* `XAMPP` または `MAMP` の `htdocs` 配下での使用を想定しています。
+
+3. 依存のインストール
+
+```bash
+bun install
+```
+
+4. 開発サーバーの起動
 
 ```bash
 bun run dev
 ```
 
-5. Storybookを起動して、コンポーネントを確認する場合:
+5. Storybookの起動
 
 ```bash
 bun run sb
 ```
+
+6. WordPressのセットアップ
+
+WordPress は ルートの `/wp` にインストールしてください。
+
+```bash
+wp core download --locale=ja
+```
+
+別のディレクトリで使用する場合は、`.gitignore` や `vite.config.js` の `outDir` を調整してください。
 
 ### コマンド一覧
 
@@ -86,6 +128,7 @@ bun run sb
 | `image:gen`      | AVIF / WebPの生成                   |
 | `image:resize`   | 画像のリサイズ                       |
 | `image:icon`     | アイコンの生成                       |
+| `partytown`      | partytownを `public/` にコピー      |
 
 実行する際は、`bun run` をつけて以下のように実行してください。
 
@@ -155,9 +198,21 @@ bun run dev
 
 ---
 
-### `dist/`
+### `wp/wp-content/themes/brm-101/` （WordPressテーマ）
 
-- ビルド生成物の出力先（`bun run build` で出力）
+- `bun run build` により出力される、WordPress用のテーマ本体
+- テンプレートファイル
+	- `front-page.php`: トップページ用テンプレート
+	- `page-*.php`: `slug` に応じて使用される固定ページテンプレート群
+- スタイル・スクリプト
+	- `style.css`: テーマ情報（ヘッダーコメント付きの WordPress 管理用CSS）
+	- `css/style.css`: 実際にテーマで使用されるコンパイル済みCSS
+	- `js/app.js`: テーマで使用されるメインのJavaScript
+- その他の構成要素
+	- `pwa/`: PWA関連ファイル一式
+	- `~partytown/`: `partytown` ライブラリ一式
+	- `lib/`:
+		- `setting.json`: サイト別の設定ファイル
 
 ## スタイリングの基本方針
 
@@ -309,3 +364,44 @@ sizes="
 ### Scssスケール
 
 - `src/styles/settings/`: 以下のファイル群でフォントスケールやサイズスケールを調整可能です
+
+---
+
+### サイトごとの固有情報
+
+以下のファイルで管理しています。
+
+- `wp/wp-content/themes/brm-101/lib/setting.json` 
+
+GTMのコードや認証コード、企業名等はこちらをご利用ください
+
+## 使用を想定しているプラグイン
+
+本テーマで推奨するプラグインは以下の通りです。
+
+1. Akismet Anti-spam: Spam Protection
+2. Contact Form7（＋reCAPTCHAv3）
+3. Honeypot for Contact Form 7
+4. Flamingo
+5. Edit Author Slug
+6. EWWW Image Optimizer
+7. WP Mail SMTP
+8. WP Multibyte Patch
+9. XML Sitemap Generator for Google
+
+一括でインストールコマンド:
+
+```bash
+wp plugin install akismet contact-form-7 contact-form-7-honeypot flamingo edit-author-slug  ewww-image-optimizer wp-mail-smtp wp-multibyte-patch google-sitemap-generator
+```
+
+## その他仕様・開発メモ
+
+- CSSおよびJavascriptの読み込みは主に、`wp_enqueue_scripts` で制御しています
+- CSSはインライン化されるように設定しています。(`str_replace()` による相対パス変換あり)
+- Gutenberg用のファイルは読み込みを無効化しています。必要に応じて `lib/management.php` などを調整してください。
+- Googleアナリティクスは `partytown` を通じたGTM利用による挿入を想定。認証コードは、`lib/setting.json` をご利用ください。
+- jQueryの読み込み方法を一部変更しています。`inquiry` ページ以外での読み込みは無効化していますので、適宜調整ください。
+- カスタム投稿として、`news` を実装済
+- アーカイブのURLとして、`blog` を想定
+- `json-ld` による `Breadcrumbs`、`NewsArticle` の構造化データ対応

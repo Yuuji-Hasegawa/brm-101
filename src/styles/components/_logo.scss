@@ -10,53 +10,25 @@
   .c-logo {
     &--hd {
       font-size: clamp(
-        setting.f-font-size(2xl),
+        setting.f-font-size(3xl),
         (map.get(setting.$breakpoints, overs)),
-        setting.f-font-size(5xl)
+        (setting.f-font-size(m) + setting.f-font-size(3xl))
       );
     }
 
+		&--ft {
+			font-size: setting.f-font-size(4xl);
+		}
+
     &--menu {
-      font-size: calc(var(--f-5xl) + var(--f-4xl));
+      font-size: calc(setting.f-font-size(3xl) + setting.f-font-size(m));
     }
-  }
-
-  .c-logo-fll {
-    fill: var(--c-accent-middle);
-
-    .c-logo:hover & {
-      fill: var(--c-accent-hover);
-    }
-
-    .c-logo:focus &,
-    .c-logo:active & {
-      fill: var(--c-accent-engage);
-    }
-  }
-
-  .c-logo-drw {
-    fill: var(--c-brand-middle);
-
-    .c-logo:hover & {
-      fill: var(--c-link-hover);
-    }
-
-    .c-logo:focus &,
-    .c-logo:active & {
-      fill: var(--c-link-engage);
-    }
-  }
-
-  .c-logo-ltr {
-    fill: var(--c-accent-middle);
-
-    .c-logo:hover & {
-      fill: var(--c-accent-hover);
-    }
-
-    .c-logo:focus &,
-    .c-logo:active & {
-      fill: var(--c-accent-engage);
-    }
+		&:hover {
+			opacity: calc(1.0 - map.get(setting.$state-ratio, hover));
+		}
+		&:focus,
+		&:active {
+			opacity: calc(1.0 - map.get(setting.$state-ratio, engage));
+		}
   }
 }

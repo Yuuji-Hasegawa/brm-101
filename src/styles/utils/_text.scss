@@ -61,7 +61,7 @@
     text-decoration-thickness: 0.5em;
     text-decoration-color: color-mix(
       in oklab,
-      var(--c-accent-middle),
+      var(--c-status-warning-bg),
       transparent 60%
     );
     text-underline-offset: -0.2em;
@@ -87,4 +87,8 @@
   .u-txt-inf {
     color: var(--c-status-info);
   }
+
+	.u-txt-inv {
+		color: var(--c-txt-on-inverse-bg)
+	}
 }

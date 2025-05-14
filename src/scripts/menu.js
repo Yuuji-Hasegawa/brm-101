@@ -5,7 +5,8 @@ export const menu = () => {
 
   const initNav = () => {
     buttons.forEach((button) => {
-      button.setAttribute('aria-expanded', 'false')
+			button.setAttribute('aria-expanded', 'false')
+			button.setAttribute('aria-label', 'メニューを開く')
       button.blur()
     })
     if (menu) {
@@ -18,7 +19,8 @@ export const menu = () => {
     if (menu) {
       if (!menu.classList.contains('is-open')) {
         buttons.forEach((button) => {
-          button.setAttribute('aria-expanded', 'true')
+					button.setAttribute('aria-expanded', 'true')
+					button.setAttribute('aria-label', 'メニューを閉じる')
           button.blur()
         })
         menu.classList.add('is-open')

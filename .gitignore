@@ -26,3 +26,18 @@ cache
 
 *storybook.log
 storybook-static
+
+wp/.htaccess
+wp/index.php
+wp/license.txt
+wp/readme.html
+wp/wp-*.php
+wp/xmlrpc.php
+wp/wp-admin/*
+wp/wp-content/*
+wp/wp-includes/*
+!wp/wp-content/themes
+wp/wp-content/themes/*
+!wp/wp-content/themes/brm-101/
+wp/wp-content/themes/brm-101/.DS_Store
+!wp/wp-content/themes/brm-101/**/*

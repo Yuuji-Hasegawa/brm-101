@@ -1,3 +1,6 @@
+@use '../settings' as setting;
+@use 'sass:map';
+
 @layer layout {
   .c-msk {
     display: grid;
@@ -12,4 +15,15 @@
       grid-area: 1 / 1;
     }
   }
+}
+
+@layer theme {
+	.c-msk {
+		&__surf {
+			&--hero {
+				background-color: rgba(map.get(setting.$sys-light, scrim), setting.$scrim-ratio);
+				color: map.get(setting.$sys-light, surfaceContainerLowest);
+			}
+		}
+	}
 }

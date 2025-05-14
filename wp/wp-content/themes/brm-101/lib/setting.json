@@ -1,0 +1,107 @@
+{
+  "site": {
+    "name": "BLUE B NOSE",
+    "keywords": [
+	    "blue b nose",
+      "ブルービーノーズ",
+      "ブルー・ビー・ノーズ",
+      "bbn"
+    ],
+    "description": "あのイーハトーヴォのすきとおった風、夏でも底に冷たさをもつ青いそら、うつくしい森で飾られたモリーオ市、郊外のぎらぎらひかる草の波。",
+    "copyright": "©︎ bbns.jp"
+  },
+  "codes": {
+    "gtm": "GTM-XXXXXX",
+    "pinterest": "#",
+    "google": "#"
+  },
+  "themeColor": {
+    "light": "#7fbce7",
+    "dark": "#a5d8ff"
+  },
+  "ogp": {
+    "twitter": {
+      "site": "bluebnose",
+      "creator": "amenwriter01"
+    }
+  },
+	"sns": {
+		"fb": "https://www.facebook.com/bluebnose",
+		"tw": "https://twitter.com/bluebnose",
+		"instagram": "https://www.instagram.com/bluebnose/",
+		"linkedin": "#",
+    "youtube": "#",
+		"note": "https://note.com/bbns/",
+    "substack": "https://bluebnose.substack.com",
+		"pinterest": "https://www.pinterest.jp/bluebnose/"
+	},
+  "author": {
+    "source": "json",
+    "type": "Person",
+    "name": "BLUE B NOSE",
+    "subtitle": "Blue b Nose",
+    "desc": "あのイーハトーヴォのすきとおった風、夏でも底に冷たさをもつ青いそら、うつくしい森で飾られたモリーオ市、郊外のぎらぎらひかる草の波。",
+    "sns": {
+      "fb": "https://www.facebook.com/bluebnose",
+      "tw": "https://twitter.com/bluebnose",
+      "instagram": "https://www.instagram.com/bluebnose/",
+      "linkedin": "#",
+      "youtube": "#",
+      "note": "https://note.com/bbns/",
+      "substack": "https://bluebnose.substack.com",
+      "pinterest": "https://www.pinterest.jp/bluebnose/",
+      "github": "#",
+      "url": "#"
+    }
+  },
+	"company": {
+		"name": "BLUE B NOSE",
+		"owner": "サンプル太郎",
+		"zip": "630-8217",
+		"address": "奈良県奈良市橋本町3-1 BONCHI",
+		"url": "https://bbns.jp/",
+    "tel": "000-0000-0000",
+		"fax": "000-0000-0000",
+		"birth": "20YY年MM月DD日",
+		"open": "09:00",
+		"close": "19:00",
+    "workday": "平日",
+		"dayoff": "土日祝・年末年始",
+		"service": [
+			"事業項目1",
+			"事業項目2",
+			"事業項目3",
+			"事業項目4",
+			"事業項目5",
+			"事業項目6"
+		],
+    "logo": {
+      "width": "1131",
+      "height": "239"
+    }
+	},
+  "contact": {
+    "email": {
+      "primary": "info@bbns.jp",
+      "sendonly": "noreply@bbns.jp"
+    },
+    "tel": "000-0000-0000",
+		"fax": "000-0000-0000"
+  },
+  "gmap": {
+    "embed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3280.9329897247435!2d135.82658877574357!3d34.681640672926505!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6001235850ce58ff%3A0x9c6cbd07c72e56aa!2z5qCq5byP5Lya56S-RlJBVEVMTE8!5e0!3m2!1sja!2sjp!4v1700736670552!5m2!1sja!2sjp",
+    "link": "https://maps.app.goo.gl/ChVUk1n21m2yTTdD7"
+  },
+  "legal": {
+    "serviceName": "BLUE B NOSE",
+    "company": "BLUE B NOSE",
+    "responsible": "サンプル 太郎",
+    "domain": "bbns.jp",
+    "court": "大阪地方裁判所",
+    "terms": {
+      "nouse": "120日間",
+      "noreply": "60日間",
+      "payterm": "12ヶ月間"
+    }
+  }
+}

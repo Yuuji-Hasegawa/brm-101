@@ -13,4 +13,41 @@
   .u-level-l {
     box-shadow: map.get(setting.$shadows, float);
   }
+	.u-tlv-s {
+		text-shadow: map.get(setting.$shadows-noSpread, layer);
+	}
+	.u-tlv-m {
+		text-shadow: map.get(setting.$shadows-noSpread, elevate);
+	}
+	.u-tlv-l {
+		text-shadow: map.get(setting.$shadows-noSpread, float);
+	}
+
+	@function drop-shadow-value($shadow-set) {
+		$drop-shadow: '';
+
+		@each $shadow in $shadow-set {
+			$drop-shadow: #{$drop-shadow} drop-shadow(#{$shadow});
+		}
+
+		@return $drop-shadow;
+	}
+
+	.u-dlv-s {
+		> * {
+			filter: drop-shadow-value(map.get(setting.$shadows-noSpread, layer));
+		}
+	}
+
+	.u-dlv-m {
+		> * {
+			filter: drop-shadow-value(map.get(setting.$shadows-noSpread, elevate));
+		}
+	}
+
+	.u-dlv-l {
+		> * {
+			filter: drop-shadow-value(map.get(setting.$shadows-noSpread, float));
+		}
+	}
 }

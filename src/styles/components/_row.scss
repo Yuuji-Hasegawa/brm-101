@@ -17,10 +17,6 @@
       min-width: min(map.get(setting.$breakpoints, underm), 100%);
     }
   }
-	.c-row__str {
-		flex-grow: 1;
-    flex-basis: map.get(setting.$breakpoints, unders);
-	}
 }
 
 @layer theme {
@@ -52,8 +48,5 @@
 			}
 			*/
     }
-  }
-
-  .c-row {
   }
 }
