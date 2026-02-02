@@ -6,7 +6,7 @@
 @layer utilities {
   $frm-targets: (s, m, l, ppr, brz);
   @each $key, $name in setting.$aspect {
-    $is_target: if($key != l, true, false);
+    $is_target: $key != l;
     @if $is_target {
       .u-asp-#{$key} {
         --frm-asp: #{($name)};

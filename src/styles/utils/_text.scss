@@ -9,7 +9,7 @@
   ) !default;
 
   @each $key, $name in setting.$lineHeight {
-    $is_target: if($key != m, true, false);
+    $is_target: $key != m;
     @if $is_target {
       .u-lnh-#{$key} {
         line-height: map.get(setting.$lineHeight, $key);

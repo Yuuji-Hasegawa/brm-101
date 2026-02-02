@@ -19,7 +19,7 @@
 
   :root {
     @each $key, $name in setting.$spaceScale {
-      $is_target: if($key != auto, true, false);
+      $is_target: $key != auto;
       @if $is_target {
         & {
           --s-#{$key}: #{setting.f-get-space($key)};
@@ -134,17 +134,16 @@
     }
 
     @each $key, $values in setting.$shadows {
-      $value-string: '';
-      @each $value in $values {
-        $value-string: if(
-          $value-string == '',
-          #{$value},
-          $value-string + ', ' + #{$value}
-        );
-      }
-
-      --c-shadow-#{$key}: #{$value-string};
-    }
+			$value-string: '';
+			@each $value in $values {
+				@if $value-string == '' {
+					$value-string: #{$value};
+				} @else {
+					$value-string: $value-string + ', ' + #{$value};
+				}
+			}
+			--c-shadow-#{$key}: #{$value-string};
+		}
 
     --c-scrim-adujust: #{rgba(
         map.get(setting.$sys-light, scrim),
