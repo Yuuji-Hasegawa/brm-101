@@ -31,8 +31,7 @@
     "image:opt": "node npm-scripts/opt.js",
     "image:gen": "node npm-scripts/gen.js",
     "image:resize": "node npm-scripts/resize.js",
-    "image:icon": "node npm-scripts/icon.js",
-    "partytown": "partytown copylib 'public/~partytown'"
+    "image:icon": "node npm-scripts/icon.js"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^3.2.7",

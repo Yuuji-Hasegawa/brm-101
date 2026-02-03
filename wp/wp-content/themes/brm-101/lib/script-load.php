@@ -23,7 +23,7 @@ function my_script_styles()
     if (!is_admin()) {
         wp_deregister_script('jquery');
         if (is_page('inquiry')) {
-            wp_register_script('jquery', 'https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js', array(), '3.3.1', true);
+            wp_register_script('jquery', 'https://cdn.jsdelivr.net/npm/jquery@4.0.0/+esm', array(), '4.0.0', true);
             wp_enqueue_script('jquery');
             if (function_exists('wpcf7_enqueue_scripts')) {
                 wpcf7_enqueue_scripts();
@@ -54,7 +54,8 @@ add_filter('script_loader_tag', 'add_async', 10, 2);
 
 function add_async($tag, $handle)
 {
-    if($handle === 'oneSignal') {
+    if ($handle === 'jquery') {
+        $tag = str_replace('text/javascript', 'module', $tag);
         return str_replace(' src=', ' defer src=', $tag);
     } elseif ($handle !== 'themeApp') {
         return $tag;

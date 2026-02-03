@@ -128,7 +128,6 @@ wp core download --locale=ja
 | `image:gen`      | AVIF / WebPの生成                   |
 | `image:resize`   | 画像のリサイズ                       |
 | `image:icon`     | アイコンの生成                       |
-| `partytown`      | partytownを `public/` にコピー      |
 
 実行する際は、`bun run` をつけて以下のように実行してください。
 
@@ -210,7 +209,6 @@ bun run dev
 	- `js/app.js`: テーマで使用されるメインのJavaScript
 - その他の構成要素
 	- `pwa/`: PWA関連ファイル一式
-	- `~partytown/`: `partytown` ライブラリ一式
 	- `lib/`:
 		- `setting.json`: サイト別の設定ファイル
 
@@ -400,7 +398,6 @@ wp plugin install akismet contact-form-7 contact-form-7-honeypot flamingo edit-a
 - CSSおよびJavascriptの読み込みは主に、`wp_enqueue_scripts` で制御しています
 - CSSはインライン化されるように設定しています。(`str_replace()` による相対パス変換あり)
 - Gutenberg用のファイルは読み込みを無効化しています。必要に応じて `lib/management.php` などを調整してください。
-- Googleアナリティクスは `partytown` を通じたGTM利用による挿入を想定。認証コードは、`lib/setting.json` をご利用ください。
 - jQueryの読み込み方法を一部変更しています。`inquiry` ページ以外での読み込みは無効化していますので、適宜調整ください。
 - カスタム投稿として、`news` を実装済
 - アーカイブのURLとして、`blog` を想定

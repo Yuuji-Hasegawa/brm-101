@@ -23,5 +23,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - `wp/wp-content/themes/brm-101/` WordPressテーマ作成
-- `partytown` の組み込みによる計測タグの遅延読み込み対応
 - `lib/setting.json` によるサイト固有情報（会社名・電話番号など）の差し込み機能を追加

@@ -213,33 +213,3 @@ function add_head()
     echo $inserts;
 }
 add_action('wp_head', 'add_head');
-
-
-function add_gtm_partytown() {
-  ?>
-  <script>
-    partytown = {
-      lib: "<?php echo get_template_directory_uri(); ?>/~partytown/"
-    };
-  </script>
-  <script src="<?php echo get_template_directory_uri(); ?>/~partytown/partytown.js"></script>
-  <script type="text/partytown">
-    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','<?php echo get_vars('codes.gtm');?>');
-  </script>
-  <?php
-}
-add_action('wp_head', 'add_gtm_partytown', 1);
-
-function add_gtm_nojs_partytown() {
-  ?>
-  <noscript>
-    <iframe src="https://www.googletagmanager.com/ns.html?id=<?php echo get_vars('codes.gtm');?>"
-      height="0" width="0" style="display:none;visibility:hidden"></iframe>
-  </noscript>
-  <?php
-}
-add_action('wp_body_open', 'add_gtm_nojs_partytown');
