@@ -47,12 +47,15 @@ function getInOut(input, output) {
 }
 
 ;(async () => {
-  let dirs = getInOut(srcDir, pubDir)
+	let dirs = getInOut(srcDir, pubDir)
+	let processedCount = 0
+	let skippedCount = 0
+	let errorCount = 0
 
   const promises = dirs.map(async (item) => {
     const files = fs
       .readdirSync(item.input)
-      .filter((file) => /\.(jpg|jpeg|png|gif)$/.test(file))
+      .filter((file) => /\.(jpg|jpeg|png)$/.test(file))
 
     const filePromises = files.map(async (file) => {
       const filePath = path.join(item.input, file)
@@ -62,7 +65,8 @@ function getInOut(input, output) {
       const cacheKey = filePath
 
       if (cacheData[cacheKey]) {
-        console.log(`Skipping already processed: ${filePath}`)
+				console.log(`Skipping already processed: ${filePath}`)
+				skippedCount++
         return
       }
 
@@ -77,9 +81,11 @@ function getInOut(input, output) {
           .toFile(path.join(item.output, `${filename}.avif`))
 
         cacheData[cacheKey] = true
-        console.log(`Processed: ${filePath}`)
+				console.log(`Processed: ${filePath}`)
+				processedCount++
       } catch (error) {
-        console.error(`Error processing ${filePath}:`, error)
+				console.error(`Error processing ${filePath}:`, error)
+				errorCount++
       }
     })
 
@@ -93,5 +99,9 @@ function getInOut(input, output) {
     console.log('Cache updated successfully')
   } catch (error) {
     console.error('Error writing cache file:', error)
-  }
+	}
+	console.log('\n--- Summary ---')
+	console.log(`✅ Processed: ${processedCount} files`)
+	console.log(`⏭️  Skipped: ${skippedCount} files`)
+	console.log(`❌ Errors: ${errorCount} files`)
 })()

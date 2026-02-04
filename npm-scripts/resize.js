@@ -47,64 +47,97 @@ function getInOut(input, output) {
 }
 
 const resizeWidths = [320, 640, 960, 1920]
-const formats = [
-  { ext: 'webp', options: { quality: 70 } },
-  { ext: 'avif', options: { quality: 70 } },
-  { ext: 'png', options: { compressionLevel: 8 } },
-]
+function getFormatsForExtension(ext) {
+	const baseFormats = [
+    { ext: 'webp', options: { quality: 70 } },
+    { ext: 'avif', options: { quality: 70 } },
+  ]
+  if (ext === '.png') {
+    return [
+      ...baseFormats,
+      { ext: 'png', options: { compressionLevel: 8 } }
+    ]
+  }
+
+	if (ext === '.jpg' || ext === '.jpeg') {
+		return [
+			...baseFormats,
+			{ ext: ext.slice(1), options: { quality: 85, progressive: true } }
+		]
+	}
+
+	return baseFormats
+}
 
 ;(async () => {
-  let dirs = getInOut(srcDir, pubDir)
+	let dirs = getInOut(srcDir, pubDir)
+	let resizedCount = 0
+	let convertedCount = 0
+	let skippedCount = 0
+	let errorCount = 0
 
   const promises = dirs.map(async (item) => {
     const files = fs
       .readdirSync(item.input)
-      .filter((file) => /\.(jpg|jpeg|png|gif)$/i.test(file))
+      .filter((file) => /\.(jpg|jpeg|png)$/i.test(file))
 
     const filePromises = files.map(async (file) => {
       const filePath = path.join(item.input, file)
       const filename = path.parse(file).name
-      const ext = path.parse(file).ext.toLowerCase()
+			const ext = path.parse(file).ext.toLowerCase()
+
+			console.log(`\n Processing: ${file}`)
 
       for (let width of resizeWidths) {
         const resizedFilename = `${filename}-${width}${ext}`
         const resizedFilePath = path.join(item.output, resizedFilename)
 
-        if (!cacheData[resizedFilePath]) {
-          ensureDirSync(item.output)
+				if (!cacheData[resizedFilePath]) {
+					ensureDirSync(item.output)
 
-          try {
-            await sharp(filePath)
-              .resize({ width, withoutEnlargement: true })
-              .toFile(resizedFilePath)
-            cacheData[resizedFilePath] = true
-            console.log(`Resized: ${resizedFilePath}`)
-          } catch (error) {
-            console.error(
-              `Error resizing ${filePath} (width: ${width}px):`,
-              error,
-            )
-          }
-        }
+					try {
+						await sharp(filePath)
+							.resize({ width, withoutEnlargement: true })
+							.toFile(resizedFilePath)
+						cacheData[resizedFilePath] = true
+						console.log(`Resized: ${resizedFilePath}`)
+						resizedCount++
+					} catch (error) {
+						console.error(
+							`Error resizing ${filePath} (width: ${width}px):`,
+							error,
+						)
+						errorCount++
+						continue
+					}
+				} else {
+					skippedCount++
+				}
+
+				const formats = getFormatsForExtension(ext)
 
         for (let format of formats) {
           const convertedFilename = `${filename}-${width}.${format.ext}`
           const convertedFilePath = path.join(item.output, convertedFilename)
 
-          if (!cacheData[convertedFilePath]) {
-            try {
-              await sharp(resizedFilePath)
-                .toFormat(format.ext, format.options)
-                .toFile(convertedFilePath)
-              cacheData[convertedFilePath] = true
-              console.log(`Converted: ${convertedFilePath}`)
-            } catch (error) {
-              console.error(
-                `Error converting ${resizedFilePath} to ${format.ext}:`,
-                error,
-              )
-            }
-          }
+					if (!cacheData[convertedFilePath]) {
+						try {
+							await sharp(resizedFilePath)
+								.toFormat(format.ext, format.options)
+								.toFile(convertedFilePath)
+							cacheData[convertedFilePath] = true
+							console.log(`Converted: ${convertedFilePath}`)
+							convertedCount++
+						} catch (error) {
+							console.error(
+								`Error converting ${resizedFilePath} to ${format.ext}:`,
+								error,
+							)
+							errorCount++
+						}
+					} else {
+						skippedCount++
+					}
         }
       }
     })
@@ -119,5 +152,10 @@ const formats = [
     console.log('Cache updated successfully')
   } catch (error) {
     console.error('Error writing cache file:', error)
-  }
+	}
+	console.log('\n--- Summary ---')
+	console.log(`Resized: ${resizedCount} files`)
+	console.log(`Converted: ${convertedCount} files`)
+  console.log(`Skipped (cached): ${skippedCount} files`)
+  console.log(`Errors: ${errorCount} files`)
 })()
