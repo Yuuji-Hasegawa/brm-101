@@ -7,7 +7,6 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "sb:build": "storybook build",
     "lint": "run-p -l -c --aggregate-output lint:*",
     "lint:eslint": "eslint . --cache --cache-location 'cache/.eslintcache'",
     "lint:prettier": "prettier --check .",
@@ -36,14 +35,6 @@
     "@chromatic-com/storybook": "^3.2.7",
     "@eslint/js": "^9.39.2",
     "@material/material-color-utilities": "^0.3.0",
-    "@storybook/addon-essentials": "^8.6.14",
-    "@storybook/addon-interactions": "^8.6.14",
-    "@storybook/addon-links": "^8.6.15",
-    "@storybook/blocks": "^8.6.14",
-    "@storybook/builder-vite": "^8.6.15",
-    "@storybook/html": "^8.6.15",
-    "@storybook/html-vite": "^8.6.15",
-    "@storybook/test": "^8.6.15",
     "browserslist": "^4.28.1",
     "css-declaration-sorter": "^7.3.1",
     "dotenv": "^16.6.1",
@@ -68,7 +59,6 @@
     "rimraf": "^6.1.2",
     "sass": "^1.97.3",
     "sass-embedded": "^1.97.3",
-    "storybook": "^8.6.15",
     "stylelint": "^16.26.1",
     "stylelint-config-prettier-scss": "^1.0.0",
     "stylelint-config-recess-order": "^5.1.1",
@@ -78,10 +68,6 @@
     "vite": "^5.4.21"
   },
   "dependencies": {
-    "@qwik.dev/partytown": "^0.11.2",
-    "@storybook/manager-api": "^8.6.14",
-    "@storybook/preview-api": "^8.6.14",
-    "@storybook/theming": "^8.6.14",
     "sharp": "^0.33.5"
   },
   "browserslist": [
